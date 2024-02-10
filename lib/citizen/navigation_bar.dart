@@ -1,3 +1,4 @@
+import 'package:crime_track_master/citizen/emergency_contact.dart';
 import 'package:flutter/material.dart';
 
 import 'home_page.dart';
@@ -12,9 +13,14 @@ class BottomPage extends StatefulWidget {
 class _BottomPageState extends State<BottomPage> {
   int currentIndex=0;
   List<Widget> pages=[
+    ContactPage(),
     HomeScreen(),
-
   ];
+  onTapped(int index){
+    setState(() {
+      currentIndex=index;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
