@@ -99,19 +99,17 @@ class LoginPage extends StatefulWidget {
                                 ),
                               );
                             },
-
                             child: Text(
                               'Sign up as new user',
                               style: TextStyle(
-                                color: Colors.blueAccent[700],
+                                fontWeight: FontWeight.w500 ,
+                                color: Colors.deepPurple,
                               ),
                             ),
                           ),
                         ],
                       ),
                     ),
-
-
                     GestureDetector(
                       child: Container(
                         alignment:  Alignment.center,

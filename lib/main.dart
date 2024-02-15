@@ -1,3 +1,4 @@
+import 'package:crime_track_master/Pages/signup_page.dart';
 import 'package:crime_track_master/citizen/emergency_contact.dart';
 import 'package:crime_track_master/citizen/home_page.dart';
 import 'package:crime_track_master/citizen/navigation_bar.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: BottomPage(),
+      home: SignUpPage(),
     );
   }
 }
