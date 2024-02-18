@@ -1,7 +1,9 @@
 import 'package:crime_track_master/citizen/navigation_bar.dart';
+import 'package:crime_track_master/police/widgetsPolice/navigation_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../citizen/home_page.dart';
 import 'login_page.dart';
 
 // Add any necessary imports for additional functionality (e.g., validation)
@@ -141,6 +143,12 @@ class _SignUpPageState extends State<SignUpPage> {
                       onTap: () {
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => BottomPage()),
+                            );
+                          ;
                           // Handle sign-up logic here (e.g., API call)
                           print('Email: $_email, Gender: $_gender, Password: $_password');
                         }

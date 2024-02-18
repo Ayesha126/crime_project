@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../police/widgetsPolice/navigation_menu.dart';
+
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -111,6 +113,12 @@ class LoginPage extends StatefulWidget {
                       ),
                     ),
                     GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => NavigationMenu()),
+                        );
+                      },
                       child: Container(
                         alignment:  Alignment.center,
                         width: 250,

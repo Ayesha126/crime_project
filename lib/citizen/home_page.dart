@@ -31,7 +31,6 @@ class _HomeScreenState extends State<HomeScreen> {
               shrinkWrap: true,
               children: [
                 CustomCaroule(),
-
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
@@ -56,8 +55,6 @@ class _HomeScreenState extends State<HomeScreen> {
     ),
   );
 }
-
-
 
 class AmbulanceEmergency extends StatelessWidget {
   _callNumber(String number) async{
