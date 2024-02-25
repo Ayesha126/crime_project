@@ -83,7 +83,7 @@ class _ServicePageState extends State<ServicePage> {
                   children: [
                     Align(
                       alignment: Alignment.bottomCenter,
-                      child: Image.asset('images/sos.png', scale: 3.7),
+                      child: Image.asset('images/sos.png', scale: 3.5),
                     ),
                     SizedBox(height: 10), // add some space between the image and the text
                     Center(
@@ -95,7 +95,7 @@ class _ServicePageState extends State<ServicePage> {
                   children: [
                     Align(
                       alignment: Alignment.bottomCenter,
-                      child: Image.asset('images/phone.png', scale: 3.7),
+                      child: Image.asset('images/em1.png', scale: 3.7),
                     ),
                     SizedBox(height: 10), // add some space between the image and the text
                     Center(

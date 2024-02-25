@@ -133,7 +133,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           _gender = value!;
                         });
                       },
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Gender',
                       ),
                     ),
@@ -146,7 +146,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => BottomPage()),
+                                  builder: (context) => const BottomPage()),
                             );
                           ;
                           // Handle sign-up logic here (e.g., API call)

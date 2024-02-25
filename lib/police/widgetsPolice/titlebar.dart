@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 class CustomTitleBar extends StatelessWidget {
   final String title;
   const CustomTitleBar({Key? key, required this.title}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-
-    final double customTitleBarHeight = 90.0;
-
+    const double customTitleBarHeight = 90.0;
     return Container(
         height: customTitleBarHeight,
       padding: EdgeInsets.only(
@@ -16,13 +15,15 @@ class CustomTitleBar extends StatelessWidget {
       child: Center(
         child: Text(
           title,
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
+          style: GoogleFonts.merriweather( // Example of changing font to Open Sans
+            textStyle: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
           ),
         ),
       ),
+    ),
     );
   }
 }
