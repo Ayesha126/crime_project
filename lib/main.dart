@@ -2,11 +2,12 @@ import 'package:crime_track_master/Pages/signup_page.dart';
 import 'package:crime_track_master/citizen/emergency_contact.dart';
 import 'package:crime_track_master/citizen/home_page.dart';
 import 'package:crime_track_master/citizen/navigation_bar.dart';
+import 'package:crime_track_master/citizen/services.dart';
 import 'package:flutter/material.dart';
 import 'package:crime_track_master/Pages/login_page.dart';
-import 'package:flutter/services.dart';
+
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: LoginPage(),
+      home: BottomPage(),
     );
   }
 }
