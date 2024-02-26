@@ -138,7 +138,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                     ),
 
-                    SizedBox(height: 35),
+                    const SizedBox(height: 35),
                     GestureDetector(
                       onTap: () {
                         if (_formKey.currentState!.validate()) {

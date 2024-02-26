@@ -9,7 +9,7 @@ class HomePage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          CustomTitleBar(title: 'Home Page'), // Custom title bar
+          const CustomTitleBar(title: 'Home Page'), // Custom title bar
           Container(
             height: 200, // Adjust the height as needed
             color: Colors.grey[300], // Background color of the image container
@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           // Add spacing between the image and icons
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -31,7 +31,7 @@ class HomePage extends StatelessWidget {
                     'images/logo.png', // Replace with your image icon asset path
                     height: 24, // Adjust the height as needed
                   ),
-                  Text('Home'), // Example: Replace with your desired label
+                  const Text('Home'), // Example: Replace with your desired label
                 ],
               ),
               GestureDetector(
@@ -48,7 +48,7 @@ class HomePage extends StatelessWidget {
                       'images/logo.png', // Replace with your image icon asset path
                       height: 24, // Adjust the height as needed
                     ),
-                    Text('Settings'), // Example: Replace with your desired label
+                    const Text('Settings'), // Example: Replace with your desired label
                   ],
                 ),
               ),
