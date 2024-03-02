@@ -1,5 +1,6 @@
 import 'package:crime_track_master/citizen/emergency_contact.dart';
 import 'package:crime_track_master/citizen/services.dart';
+import 'package:crime_track_master/citizen/setting.dart';
 import 'package:flutter/material.dart';
 
 import 'home_page.dart';
@@ -14,9 +15,10 @@ class BottomPage extends StatefulWidget {
 class _BottomPageState extends State<BottomPage> {
   int currentIndex=0;
   List<Widget> pages=[
-    ServicePage(),
     HomeScreen(),
+    ServicePage(),
     ContactPage(),
+    Setting(),
   ];
   onTapped(int index){
     setState(() {
@@ -30,6 +32,7 @@ class _BottomPageState extends State<BottomPage> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
         type: BottomNavigationBarType.fixed,
+        onTap: onTapped,
         items: [
           BottomNavigationBarItem(
             label: 'home',

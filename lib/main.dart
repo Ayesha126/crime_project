@@ -3,6 +3,8 @@ import 'package:crime_track_master/citizen/emergency_contact.dart';
 import 'package:crime_track_master/citizen/home_page.dart';
 import 'package:crime_track_master/citizen/navigation_bar.dart';
 import 'package:crime_track_master/citizen/services.dart';
+import 'package:crime_track_master/police/homepage.dart';
+import 'package:crime_track_master/police/widgetsPolice/navigation_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:crime_track_master/Pages/login_page.dart';
 
