@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 class MiddleTitleBar extends StatelessWidget {
   final String title;
   final double height;
-
   const MiddleTitleBar({
     Key? key,
     required this.title,
@@ -21,7 +20,7 @@ class MiddleTitleBar extends StatelessWidget {
       ),
       height: height,
       // Set the height of the title bar
-      color: Colors.red.withOpacity(0.2),
+      color: Color(0xFFFF0000).withOpacity(0.2),
       // Example color for the title bar
     child: Text(
     title,
@@ -29,14 +28,13 @@ class MiddleTitleBar extends StatelessWidget {
     textStyle: const TextStyle(
     fontSize: 22,
     fontWeight: FontWeight.bold,
-    color: Colors.red,
+      color: Color(0xFF7B0305), // Background color of the title bar
     ),
         ),
       ),
     );
   }
 }
-
 class CustomTitleBar extends StatelessWidget {
   final String title;
   const CustomTitleBar({Key? key, required this.title}) : super(key: key);
@@ -46,9 +44,10 @@ class CustomTitleBar extends StatelessWidget {
     return Container(
         height: customTitleBarHeight,
       padding: EdgeInsets.only(
-        top: MediaQuery.of(context).padding.top, // Add padding to account for status bar// Increase the bottom padding to increase the height
+        top: MediaQuery.of(context).padding.top,
+        // Add padding to account for status bar// Increase the bottom padding to increase the height
       ),
-      color: Colors.red, // Background color of the title bar
+      color: Color(0xFF7B0305), // Background color of the title bar
       child: Center(
         child: Text(
           title,

@@ -37,7 +37,8 @@
         body: PageView(
           controller: _pageController,
           onPageChanged: onPageChanged,
-          pageSnapping: false,
+          pageSnapping: true,
+          physics: const NeverScrollableScrollPhysics(),
           children: <Widget>[
             HomePage(),
             ServicesPage(),
@@ -50,15 +51,15 @@
             _pageController.animateToPage(
               index,
               duration: const Duration(milliseconds: 300),
-              curve: Curves.ease,
+              curve: Curves.ease ,
             );
           },
           type: BottomNavigationBarType.fixed,
-          selectedItemColor: Colors.red,
+          selectedItemColor: Color(0xFF7B0305),
           items: const [
             BottomNavigationBarItem(
               label: 'Home',
-              icon: Icon(FontAwesomeIcons.home),
+              icon: Icon(FontAwesomeIcons.house),
             ),
             BottomNavigationBarItem(
               label: 'Services',

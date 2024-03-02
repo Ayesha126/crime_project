@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'home_page.dart';
 
 class BottomPage extends StatefulWidget {
-  const BottomPage({Key? key}) : super(key: key);
+  const BottomPage({super.key});
 
   @override
   State<BottomPage> createState() => _BottomPageState();

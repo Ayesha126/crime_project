@@ -1,3 +1,4 @@
+import 'package:crime_track_master/police/FIR_Registration.dart';
 import 'package:crime_track_master/police/services.dart';
 import 'package:crime_track_master/police/settings.dart';
 import 'package:flutter/material.dart';
@@ -52,25 +53,33 @@ class HomePage extends StatelessWidget {
           SizedBox(height: 8),
           MiddleTitleBar(title: 'Services', height: 45),
           SizedBox(height: 8),
-      Container(
+     Container(
         decoration: BoxDecoration(
           border: Border.all(
-            color: Colors.red, // Adjust the border color as needed
-            width: 1.0, // Adjust the border width as needed
+            color: Color(0xFFFF2400), // Background color of the title bar
+            width:1.5, // Adjust the border width as needed
           ),
           borderRadius: BorderRadius.circular(10.0), // Adjust the border radius as needed
         ),
         child: Column(
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceAround ,
               children: [
-                Column(
+                GestureDetector(
+                onTap: () {
+                  // Navigate to the services page when the image is tapped
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => FIRRegistrationPage()),
+                  );
+                },
+                child: Column(
                   children: [
                     SizedBox(height: 8),
                     Image.asset(
                       'images/img.png', // Replace with your image icon asset path
-                      height: 65, // Adjust the height as needed
+                      height: 69, // Adjust the height as needed
                     ),
                     SizedBox(height: 10),
                     Text(
@@ -81,6 +90,7 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ],
+                ),
                 ),
                 GestureDetector(
                   onTap: () {
@@ -112,7 +122,7 @@ class HomePage extends StatelessWidget {
             ),
             SizedBox(height: 20),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Column(
                   children: [
@@ -159,7 +169,7 @@ class HomePage extends StatelessWidget {
             ),
             SizedBox(height: 15),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 GestureDetector(
                   onTap: () {
