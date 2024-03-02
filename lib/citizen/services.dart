@@ -95,7 +95,7 @@ class _ServicePageState extends State<ServicePage> {
                     SizedBox(height: 40),
                     Align(
                       alignment: Alignment.bottomCenter,
-                      child: Image.asset('images/sos.png', scale: 6.0),
+                      child: Image.asset('images/sos.png', scale: 7.0),
                     ),
                     SizedBox(height: 10), // add some space between the image and the text
                     Center(
@@ -108,7 +108,7 @@ class _ServicePageState extends State<ServicePage> {
                     SizedBox(height: 40),
                     Align(
                       alignment: Alignment.bottomCenter,
-                      child: Image.asset('images/em1.png', scale: 6.0),
+                      child: Image.asset('images/emergency-phone.png', scale: 8.4),
                     ),
                     SizedBox(height: 10), // add some space between the image and the text
                     Center(
@@ -248,7 +248,7 @@ class _ServicePageState extends State<ServicePage> {
                     SizedBox(height: 40),
                     Align(
                       alignment: Alignment.bottomCenter,
-                      child: Image.asset('images/img.png', scale: 6.0),
+                      child: Image.asset('images/report.png', scale: 6.0),
                     ),
                     SizedBox(height: 10), // add some space between the image and the text
                     Center(
@@ -274,7 +274,7 @@ class _ServicePageState extends State<ServicePage> {
                     SizedBox(height: 40),
                     Align(
                       alignment: Alignment.bottomCenter,
-                      child: Image.asset('images/suspect.png', scale: 6.0),
+                      child: Image.asset('images/suspect.png', scale: 8.0),
                     ),
                     SizedBox(height: 10), // add some space between the image and the text
                     Center(
@@ -331,7 +331,7 @@ class _ServicePageState extends State<ServicePage> {
                     SizedBox(height: 40),
                     Align(
                       alignment: Alignment.bottomCenter,
-                      child: Image.asset('images/img.png', scale: 6.0),
+                      child: Image.asset('images/fight.png', scale: 6.0),
                     ),
                     SizedBox(height: 10), // add some space between the image and the text
                     Center(
@@ -344,7 +344,7 @@ class _ServicePageState extends State<ServicePage> {
                     SizedBox(height: 40),
                     Align(
                       alignment: Alignment.bottomCenter,
-                      child: Image.asset('images/hacking.png', scale: 6.0),
+                      child: Image.asset('images/cyber security.png', scale: 6.0),
                     ),
                     SizedBox(height: 10), // add some space between the image and the text
                     Center(
