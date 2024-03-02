@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:crime_track_master/police/widgetsPolice/titlebar.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
-
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -53,7 +51,7 @@ class HomePage extends StatelessWidget {
           SizedBox(height: 10),
           MiddleTitleBar(title: 'Services', height: 45),
           SizedBox(height: 10),
-      Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Column(

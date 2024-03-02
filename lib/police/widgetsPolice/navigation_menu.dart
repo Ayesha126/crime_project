@@ -3,8 +3,9 @@
   import 'package:crime_track_master/police/settings.dart';
   import 'package:font_awesome_flutter/font_awesome_flutter.dart';
   import 'package:flutter/material.dart';
+
   class NavigationMenu extends StatefulWidget {
-    const NavigationMenu({Key? key}) : super(key: key);
+    const NavigationMenu({super.key});
     @override
     State<NavigationMenu> createState() => _NavigationMenuState();
   }
