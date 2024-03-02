@@ -19,8 +19,10 @@ class MiddleTitleBar extends StatelessWidget {
         left: 16,
         right: 16,
       ),
-      height: height, // Set the height of the title bar
-      color: Colors.red.withOpacity(0.2),// Example color for the title bar
+      height: height,
+      // Set the height of the title bar
+      color: Colors.red.withOpacity(0.2),
+      // Example color for the title bar
     child: Text(
     title,
     style: GoogleFonts.merriweather( // Example of changing font to Open Sans

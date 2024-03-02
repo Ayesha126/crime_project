@@ -1,3 +1,4 @@
+import 'package:crime_track_master/police/services.dart';
 import 'package:crime_track_master/police/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:crime_track_master/police/widgetsPolice/titlebar.dart';
@@ -48,127 +49,148 @@ class HomePage extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 8),
           MiddleTitleBar(title: 'Services', height: 45),
-          SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Column(
-                children: [
-                  Image.asset(
-                    'images/img.png', // Replace with your image icon asset path
-                    height: 68, // Adjust the height as needed
-                  ),
-                  SizedBox(height: 10),
-                   Text(
-                      'FIR Registration',
-                    style: GoogleFonts.merriweather (
-                      fontSize: 15, // Adjust the font size as needed
-                      color: Colors.black,
-                    )
-                  ), // Example: Replace with your desired label
-                ],
-              ),
-              GestureDetector(
-                onTap: () {
-                  // Navigate to the settings page when the settings icon is tapped
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => SettingsPage()),
-                  );
-                },
-                child: Column(
-                  children: [
-                    Image.asset(
-                      'images/police.png', // Replace with your image icon asset path
-                      height: 73, // Adjust the height as needed
-                    ),
-                SizedBox(height: 10),
-                    Text('Staff Details',
-
-                      style: GoogleFonts.merriweather (
-                        fontSize: 15, // Adjust the font size as needed
-                        color: Colors.black,
-                    ), // Example: Replace with your desired label
-                    ),],
-                ),
-              ),
-              // Add more columns for other icons
-            ],
+          SizedBox(height: 8),
+      Container(
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.red, // Adjust the border color as needed
+            width: 1.0, // Adjust the border width as needed
           ),
-          SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Column(
-                children: [
-                  Image.asset(
-                    'images/archive.png', // Replace with your image icon asset path
-                    height: 70, // Adjust the height as needed
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                      'Archive Files',
-                      style: GoogleFonts.merriweather (
-                        fontSize: 15, // Adjust the font size as needed
-                        color: Colors.black,
-                      )
-                  ), // Example: Replace with your desired label
-                ],
-              ),
-              GestureDetector(
-                onTap: () {
-                  // Navigate to the settings page when the settings icon is tapped
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => SettingsPage()),
-                  );
-                },
-                child: Column(
+          borderRadius: BorderRadius.circular(10.0), // Adjust the border radius as needed
+        ),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
                   children: [
+                    SizedBox(height: 8),
                     Image.asset(
-                      'images/setting.png', // Replace with your image icon asset path
+                      'images/img.png', // Replace with your image icon asset path
                       height: 65, // Adjust the height as needed
                     ),
                     SizedBox(height: 10),
-                    Text(' Settings  ',
-
-                      style: GoogleFonts.merriweather (
+                    Text(
+                      'FIR Registration',
+                      style: GoogleFonts.merriweather(
                         fontSize: 15, // Adjust the font size as needed
                         color: Colors.black,
-                      ), // Example: Replace with your desired label
-                    ),],
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              // Add more columns for other icons
-            ],
-          ),
-          SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Column(
-                children: [
-                  Image.asset(
-                    'images/next.png', // Replace with your image icon asset path
-                    height: 65, // Adjust the height as needed
+                GestureDetector(
+                  onTap: () {
+                    // Navigate to the settings page when the settings icon is tapped
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SettingsPage()),
+                    );
+                  },
+                  child: Column(
+                    children: [
+                      SizedBox(height: 8),
+                      Image.asset(
+                        'images/police.png', // Replace with your image icon asset path
+                        height: 71, // Adjust the height as needed
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        'Staff Details',
+                        style: GoogleFonts.merriweather(
+                          fontSize: 15, // Adjust the font size as needed
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
                   ),
-                  SizedBox(height: 10),
-                  Text(
-                      'View all',
-                      style: GoogleFonts.merriweather (
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                  children: [
+                    Image.asset(
+                      'images/archive.png', // Replace with your image icon asset path
+                      height: 70, // Adjust the height as needed
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      'Archive Files',
+                      style: GoogleFonts.merriweather(
                         fontSize: 15, // Adjust the font size as needed
                         color: Colors.black,
-                      )
-                  ), // Example: Replace with your desired label
-                ],
-              ),
-
-              // Add more columns for other icons
-            ],
-          ),
-        ], // Close children of the Column widget
+                      ),
+                    ),
+                  ],
+                ),
+                GestureDetector(
+                  onTap: () {
+                    // Navigate to the settings page when the settings icon is tapped
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SettingsPage()),
+                    );
+                  },
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        'images/setting.png', // Replace with your image icon asset path
+                        height: 67, // Adjust the height as needed
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        ' Settings  ',
+                        style: GoogleFonts.merriweather(
+                          fontSize: 15, // Adjust the font size as needed
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 15),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    // Navigate to the services page when the image is tapped
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ServicesPage()),
+                    );
+                  },
+               child: Column(
+                  children: [
+                    Image.asset(
+                      'images/next.png', // Replace with your image icon asset path
+                      height: 65, // Adjust the height as needed
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      'View all',
+                      style: GoogleFonts.merriweather(
+                        fontSize: 15, // Adjust the font size as needed
+                        color: Colors.black,
+                      ),
+                    ),
+                  ],
+                ),
+                )],
+            ),
+          ],
+        ),
+      )
+      ], // Close children of the Column widget
       ), // Close Column widget
     ); // Close Scaffold widget
   }
