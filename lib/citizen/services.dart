@@ -1,3 +1,4 @@
+import 'package:crime_track_master/citizen/services%20pages/information%20services/internet.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -13,7 +14,7 @@ class _ServicePageState extends State<ServicePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Color(0xFF90CAF9),
         title: Text('Services',
         style:TextStyle(
           fontWeight: FontWeight.bold,
@@ -355,9 +356,17 @@ class _ServicePageState extends State<ServicePage> {
                 Column(
                   children: [
                     SizedBox(height: 40),
-                    Align(
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => InternetPage()),
+                        );
+                      },
+                    child:Align(
                       alignment: Alignment.bottomCenter,
                       child: Image.asset('images/internet tips.png', scale: 6.0),
+                    ),
                     ),
                     SizedBox(height: 10), // add some space between the image and the text
                     Center(
