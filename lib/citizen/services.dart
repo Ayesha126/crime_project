@@ -1,3 +1,4 @@
+import 'package:crime_track_master/citizen/services%20pages/information%20services/cybersecurity.dart';
 import 'package:crime_track_master/citizen/services%20pages/information%20services/internet.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -343,13 +344,21 @@ class _ServicePageState extends State<ServicePage> {
                 Column(
                   children: [
                     SizedBox(height: 40),
-                    Align(
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => CyberPage()),
+                        );
+                      },
+                    child: Align(
                       alignment: Alignment.bottomCenter,
                       child: Image.asset('images/cyber security.png', scale: 6.0),
                     ),
+                    ),
                     SizedBox(height: 10), // add some space between the image and the text
                     Center(
-                      child: Text('Cyber Crime Information'),
+                      child: Text('Cyber Security Information'),
                     ),
                   ],
                 ),
