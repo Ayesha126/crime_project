@@ -3,8 +3,9 @@
   import 'package:crime_track_master/police/settings.dart';
   import 'package:font_awesome_flutter/font_awesome_flutter.dart';
   import 'package:flutter/material.dart';
+
   class NavigationMenu extends StatefulWidget {
-    const NavigationMenu({Key? key}) : super(key: key);
+    const NavigationMenu({super.key});
     @override
     State<NavigationMenu> createState() => _NavigationMenuState();
   }
@@ -36,7 +37,8 @@
         body: PageView(
           controller: _pageController,
           onPageChanged: onPageChanged,
-          pageSnapping: false,
+          pageSnapping: true,
+          physics: const NeverScrollableScrollPhysics(),
           children: <Widget>[
             HomePage(),
             ServicesPage(),
@@ -49,15 +51,15 @@
             _pageController.animateToPage(
               index,
               duration: const Duration(milliseconds: 300),
-              curve: Curves.ease,
+              curve: Curves.ease ,
             );
           },
           type: BottomNavigationBarType.fixed,
-          selectedItemColor: Colors.red,
+          selectedItemColor: Color(0xFF7B0305),
           items: const [
             BottomNavigationBarItem(
               label: 'Home',
-              icon: Icon(FontAwesomeIcons.home),
+              icon: Icon(FontAwesomeIcons.house),
             ),
             BottomNavigationBarItem(
               label: 'Services',
