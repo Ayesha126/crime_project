@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "902918202021",
+    "project_id": "crime-track-master",
+    "storage_bucket": "crime-track-master.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:902918202021:android:abcc43470cfb497d7d634c",
+        "android_client_info": {
+          "package_name": "com.example.crime_track_master"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_tNcqUtzkWdk717l1rBN7msMdK7OOx2c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
