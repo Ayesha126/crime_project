@@ -5,10 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../citizen/home_page.dart';
 import 'login_page.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
-final FirebaseFirestore firestore = FirebaseFirestore.instance;
-final CollectionReference collectionReference = firestore.collection('signup');
+// Add any necessary imports for additional functionality (e.g., validation)
 
 class SignUpPage extends StatefulWidget {
   @override
