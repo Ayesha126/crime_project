@@ -15,7 +15,7 @@ class LiveSafe extends StatelessWidget {
     try{
       await launchUrl(_url);
     }catch(e){
-      Fluttertoast.showToast(msg: 'Something went wrong! Call emergency number');
+      Fluttertoast.showToast(msg: 'Something went wrong! Call emergency number 112');
     }
 
   }
