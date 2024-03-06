@@ -1,11 +1,14 @@
-import 'package:crime_track_master/police/FIR_Registration.dart';
-import 'package:crime_track_master/police/services.dart';
-import 'package:crime_track_master/police/settings.dart';
-import 'package:crime_track_master/police/staffDetails.dart';
+import 'package:crime_track_master/police/PolicePg/FIR_Registration.dart';
+import 'package:crime_track_master/police/PolicePg/services.dart';
+import 'package:crime_track_master/police/PolicePg/settings.dart';
+import 'package:crime_track_master/police/PolicePg/staffDetails.dart';
+import 'package:crime_track_master/police/PolicePg/staffDisplay.dart';
 import 'package:crime_track_master/police/widgetsPolice/passwordbtn.dart';
 import 'package:flutter/material.dart';
 import 'package:crime_track_master/police/widgetsPolice/titlebar.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'caseRegister.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -101,10 +104,11 @@ class HomePage extends StatelessWidget {
                             builder: (context) => DetailsButton(onPressed: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (context) => DetailsPage(),
+                                  builder: (context) => StaffDisplayPage(staffDetails: [],),
                                 ),
                               );
                             },),
+
                           ),
                         );
                       },
@@ -132,25 +136,32 @@ class HomePage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Column(
-                      children: [
-                        Image.asset(
-                          'images/archive.png', // Replace with your image icon asset path
-                          height: 70, // Adjust the height as needed
-                        ),
-                        SizedBox(height: 10),
-                        Text(
-                          'Archive Files',
-                          style: GoogleFonts.merriweather(
-                            fontSize: 15, // Adjust the font size as needed
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
-                    GestureDetector(
+                    InkWell(
                       onTap: () {
-                        // Navigate to the settings page when the settings icon is tapped
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => CaseRegistrationPage()),
+                        );
+                      },
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            'images/archive.png',
+                            height: 70,
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            'Archive Files',
+                            style: GoogleFonts.merriweather(
+                              fontSize: 15,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => SettingsPage()),
@@ -159,14 +170,14 @@ class HomePage extends StatelessWidget {
                       child: Column(
                         children: [
                           Image.asset(
-                            'images/setting.png', // Replace with your image icon asset path
-                            height: 67, // Adjust the height as needed
+                            'images/setting.png',
+                            height: 67,
                           ),
                           SizedBox(height: 10),
                           Text(
-                            ' Settings  ',
+                            'Settings',
                             style: GoogleFonts.merriweather(
-                              fontSize: 15, // Adjust the font size as needed
+                              fontSize: 15,
                               color: Colors.black,
                             ),
                           ),

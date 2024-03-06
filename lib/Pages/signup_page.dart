@@ -6,8 +6,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../citizen/home_page.dart';
 import 'login_page.dart';
 
-// Add any necessary imports for additional functionality (e.g., validation)
-
 class SignUpPage extends StatefulWidget {
   @override
   _SignUpPageState createState() => _SignUpPageState();

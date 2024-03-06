@@ -4,7 +4,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class FIRFormPage extends StatefulWidget {
   final Function(String) onSubmit;
-
   FIRFormPage({required this.onSubmit});
 
   @override

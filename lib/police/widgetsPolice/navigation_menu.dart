@@ -1,6 +1,6 @@
-  import 'package:crime_track_master/police/homepage.dart';
-  import 'package:crime_track_master/police/services.dart';
-  import 'package:crime_track_master/police/settings.dart';
+  import 'package:crime_track_master/police/PolicePg/homepage.dart';
+  import 'package:crime_track_master/police/PolicePg/services.dart';
+  import 'package:crime_track_master/police/PolicePg/settings.dart';
   import 'package:font_awesome_flutter/font_awesome_flutter.dart';
   import 'package:flutter/material.dart';
 

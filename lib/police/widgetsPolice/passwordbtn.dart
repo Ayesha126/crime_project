@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 class DetailsButton extends StatefulWidget {
   final Function() onPressed;
   DetailsButton({required this.onPressed});
-
   @override
   _DetailsButtonState createState() => _DetailsButtonState();
 }
-
 class _DetailsButtonState extends State<DetailsButton> {
   final _passwordController = TextEditingController();
 

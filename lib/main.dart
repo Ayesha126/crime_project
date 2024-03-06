@@ -4,15 +4,14 @@ import 'package:crime_track_master/citizen/home_page.dart';
 import 'package:crime_track_master/citizen/navigation_bar.dart';
 import 'package:crime_track_master/citizen/services%20pages/information%20services/internet.dart';
 import 'package:crime_track_master/citizen/services.dart';
-import 'package:crime_track_master/police/homepage.dart';
+import 'package:crime_track_master/police/PolicePg/homepage.dart';
 import 'package:crime_track_master/police/widgetsPolice/navigation_menu.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:crime_track_master/Pages/login_page.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+
   runApp(MyApp());
 }
 
