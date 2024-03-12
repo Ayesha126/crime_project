@@ -1,7 +1,6 @@
 import 'package:crime_track_master/police/widgetsPolice/titlebar.dart';
 import 'package:flutter/material.dart';
-
-import 'FIR_form.dart';
+import 'PolicePg/FIR_form.dart';
 
 class FIRRegistrationPage extends StatefulWidget {
   @override

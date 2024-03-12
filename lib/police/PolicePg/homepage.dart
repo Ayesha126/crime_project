@@ -152,7 +152,7 @@ class HomePage extends StatelessWidget {
                           ),
                           SizedBox(height: 10),
                           Text(
-                            'Archive Files',
+                            'Case Registartion',
                             style: GoogleFonts.merriweather(
                               fontSize: 15,
                               color: Colors.black,
