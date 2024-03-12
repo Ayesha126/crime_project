@@ -183,7 +183,7 @@ class _SignUpState extends State<SignUp> {
             );
           }
         },
-        child: const Text('click on this button to signup'),
+        child: const Text('Signup'),
       ),
 
 
