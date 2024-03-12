@@ -403,8 +403,7 @@ class _ServicePageState extends State<ServicePage> {
                       const SizedBox(height: 40),
                       GestureDetector(
                         onTap: () {
-                          String encodedUrl = Uri.encodeFull("https://www.google.com");
-                          _launchURL(encodedUrl);
+                          launch('https://www.youtube.com/results?search_query=self+defence+training');
                         },
                         child:Align(
                           alignment: Alignment.bottomCenter,

@@ -137,7 +137,7 @@ class LoginPage extends StatefulWidget {
                             )
                         ) ,
                         child: Padding(padding: EdgeInsets.fromLTRB(15, 8, 15, 8),
-                          child: Text('Login',
+                          child: Text('Click this to login',
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
