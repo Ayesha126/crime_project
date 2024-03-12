@@ -1,12 +1,19 @@
-import 'package:crime_track_master/citizen/services%20pages/report%20to%20us/anonymously.dart';
-import 'package:crime_track_master/citizen/services%20pages/report%20to%20us/fir.dart';
-import 'package:crime_track_master/citizen/services%20pages/information%20services/cybersecurity.dart';
-import 'package:crime_track_master/citizen/services%20pages/information%20services/internet.dart';
-import 'package:crime_track_master/citizen/widgets%20of%20citizen/PoliceStationCard.dart';
+import 'package:crime_track_master/citizen/services pages/citizen safety/findpolice.dart';
+import 'package:crime_track_master/citizen/services pages/report to us/anonymously.dart';
+import 'package:crime_track_master/citizen/services pages/report to us/cyber.dart';
+import 'package:crime_track_master/citizen/services pages/report to us/fir.dart';
+import 'package:crime_track_master/citizen/services pages/information services/cybersecurity.dart';
+import 'package:crime_track_master/citizen/services pages/information services/internet.dart';
+import 'package:crime_track_master/citizen/services pages/sos.dart';
+import 'package:crime_track_master/citizen/services%20pages/citizen%20safety/findhospital.dart';
+import 'package:crime_track_master/citizen/widgets of citizen/PoliceStationCard.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+// ... rest of the code remains unchanged
+
 
 class ServicePage extends StatefulWidget {
   @override
@@ -15,13 +22,17 @@ class ServicePage extends StatefulWidget {
 
 class _ServicePageState extends State<ServicePage> {
   final TextEditingController _searchController = TextEditingController();
-  Future<void> _openMap(double latitude, double longitude, String title) async {
-    final url = 'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude($title)';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not open the map.';
+
+
+  static Future<void> openMap(String location) async{
+    String googleUrl='https://www.google.co.in/maps/search/$location';
+    final Uri _url=Uri.parse(googleUrl);
+    try{
+      await launchUrl(_url);
+    }catch(e){
+      Fluttertoast.showToast(msg: 'Something went wrong! Call emergency number 112');
     }
+
   }
 
   @override
@@ -105,12 +116,20 @@ class _ServicePageState extends State<ServicePage> {
             child: GridView.count(
               crossAxisCount: 2,
               children: [
+
                 Column(
                   children: [
                     const SizedBox(height: 40),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Image.asset('images/sos.png', scale: 7.0),
+
+                    InkWell(
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () {
+                        sendDistressMessage(['+918000058387', '+917405290860', '+919104109252']);
+                      },                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Image.asset('images/sos.png', scale: 7.0),
+                      ),
                     ),
                     const SizedBox(height: 10), // add some space between the image and the text
                     const Center(
@@ -197,9 +216,17 @@ class _ServicePageState extends State<ServicePage> {
                   children: [
 
                     const SizedBox(height: 40),
-                    Align(
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => PoliceStation(onMapFunction: openMap),),
+                        );
+                      },
+                    child:Align(
                       alignment: Alignment.bottomCenter,
                       child: Image.asset('images/police station.png', scale: 6.0),
+                    ),
                     ),
                     const SizedBox(height: 10), // add some space between the image and the text
                     const Center(
@@ -210,9 +237,17 @@ class _ServicePageState extends State<ServicePage> {
                 Column(
                   children: [
                     const SizedBox(height: 40),
-                    Align(
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => HospitalStation(onMapFunction: openMap),),
+                        );
+                      },
+                    child:Align(
                       alignment: Alignment.bottomCenter,
                       child: Image.asset('images/hospital.png', scale: 6.0),
+                    ),
                     ),
                     const SizedBox(height: 10), // add some space between the image and the text
                     const Center(
@@ -288,9 +323,17 @@ class _ServicePageState extends State<ServicePage> {
                 Column(
                   children: [
                     const SizedBox(height: 40),
-                    Align(
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Cyber()),
+                        );
+                      },
+                    child:Align(
                       alignment: Alignment.bottomCenter,
                       child: Image.asset('images/hacking.png', scale: 6.0),
+                    ),
                     ),
                     const SizedBox(height: 10), // add some space between the image and the text
                     const Center(
@@ -388,7 +431,7 @@ class _ServicePageState extends State<ServicePage> {
                       },
                     child: Align(
                       alignment: Alignment.bottomCenter,
-                      child: Image.asset('images/cyber security.png', scale: 6.0),
+                      child: Image.asset('images/cyber security.png', scale: 8.0),
                     ),
                     ),
                     const SizedBox(height: 10), // add some space between the image and the text

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crime_track_master/police/widgetsPolice/titlebar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -10,11 +11,11 @@ class Anonymously extends StatefulWidget {
 
 class _AnonymouslyState extends State<Anonymously> {
   final _formKey = GlobalKey<FormState>();
-  String _offencecategory = '';
-  String _policedistrict = '';
-  String _policestation = '';
-  String _placeoccurence = '';
-  String _offencedescription = '';
+  final _offencecategory = TextEditingController();
+  final _policedistrict = TextEditingController();
+  final _policestation = TextEditingController();
+  final _placeoccurence = TextEditingController();
+  final _offencedescription = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +60,7 @@ class _AnonymouslyState extends State<Anonymously> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
                   child: TextFormField(
+                    controller: _offencecategory,
                     cursorColor: Color(0xFF90CAF9),
                     decoration: InputDecoration(
                       labelText: 'Offence Category',
@@ -70,17 +72,15 @@ class _AnonymouslyState extends State<Anonymously> {
                       }
                       return null;
                     },
-                    onChanged: (value) {
-                      setState(() {
-                        _offencecategory = value;
-                      });
-                    },
+
+
                   ),
                 ),
                 SizedBox(height: 15),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
                   child: TextFormField(
+                    controller: _policedistrict,
                     cursorColor: Color(0xFF90CAF9),
                     decoration: InputDecoration(
                       labelText: 'Police District',
@@ -92,17 +92,15 @@ class _AnonymouslyState extends State<Anonymously> {
                       }
                       return null;
                     },
-                    onChanged: (value) {
-                      setState(() {
-                        _policedistrict = value;
-                      });
-                    },
+
+
                   ),
                 ),
                 SizedBox(height: 15),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
                   child: TextFormField(
+                    controller: _policestation,
                     cursorColor: Color(0xFF90CAF9),
                     decoration: InputDecoration(
                       labelText: 'Police Station',
@@ -114,17 +112,15 @@ class _AnonymouslyState extends State<Anonymously> {
                       }
                       return null;
                     },
-                    onChanged: (value) {
-                      setState(() {
-                        _policestation = value;
-                      });
-                    },
+
+
                   ),
                 ),
                 SizedBox(height: 15),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
                   child: TextFormField(
+                    controller:_placeoccurence ,
                     cursorColor: Color(0xFF90CAF9),
                     decoration: InputDecoration(
                       labelText: 'Place of Occurence',
@@ -136,17 +132,15 @@ class _AnonymouslyState extends State<Anonymously> {
                       }
                       return null;
                     },
-                    onChanged: (value) {
-                      setState(() {
-                        _placeoccurence = value;
-                      });
-                    },
+
+
                   ),
                 ),
                 SizedBox(height: 15),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
                   child: TextFormField(
+                    controller: _offencedescription,
                     cursorColor: Color(0xFF90CAF9),
                     decoration: InputDecoration(
                       labelText: 'Offence Description',
@@ -161,11 +155,8 @@ class _AnonymouslyState extends State<Anonymously> {
                       }
                       return null;
                     },
-                    onChanged: (value) {
-                      setState(() {
-                        _offencedescription = value;
-                      });
-                    },
+
+
                     maxLines: 5,
                   ),
                 ),
@@ -178,12 +169,15 @@ class _AnonymouslyState extends State<Anonymously> {
                       // Validate the form before submission
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save(); // Save form data
-                        String details =
-                            'Offence Category: $_offencecategory\n'
-                            'Police District: $_policedistrict\n'
-                            'Police Station: $_policestation\n'
-                            'Place of Occurence: $_placeoccurence\n'
-                            'Offence Description: $_offencedescription';
+                        CollectionReference collref = FirebaseFirestore.instance.collection('anonymouslyfir');
+                        collref.add({
+                          'Offence category': _offencecategory.text,
+                          'Police District': _policedistrict.text,
+                          'Police Station': _policestation.text,
+                          'Place of Occurence': _placeoccurence .text,
+                          'Offence description':_offencedescription.text,
+                        });
+
                         Navigator.pop(context);
                       }
                     },
@@ -209,3 +203,10 @@ class _AnonymouslyState extends State<Anonymously> {
     );
   }
 }
+
+
+//onChanged: (value) {
+//setState(() {
+//_policedistrict = value;
+//});
+//},

@@ -3,6 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../citizen/navigation_bar.dart';
+import 'login_page.dart';
+
 class SignUp extends StatefulWidget {
   @override
   _SignUpState createState() => _SignUpState();
@@ -40,10 +43,28 @@ class _SignUpState extends State<SignUp> {
     ),
     child: Padding(
     padding: const EdgeInsets.all(20.0),
+    child: Center(
+    child: Container(
+    height: MediaQuery.of(context).size.height/1.4,
+    width: MediaQuery.of(context).size.width*0.9,// Adjust width as needed
+    padding: EdgeInsets.all(20.0),
+    decoration: BoxDecoration(
+    color: Colors.white,
+    borderRadius: BorderRadius.circular(20.0),
+    ),
     child: Form(
     key: _formkey,
     child: Column(
     children: [
+      SizedBox(height: 20),
+      Text(
+        'Create your account',
+        style: TextStyle(
+          fontSize: 25,
+          // Consider using app theme colors or consistent styling
+        ),
+      ),
+      SizedBox(height: 20),
       TextFormField(
     controller: nameController,
     decoration: const InputDecoration(
@@ -139,22 +160,61 @@ class _SignUpState extends State<SignUp> {
       ),
       const SizedBox(height: 35),
       ElevatedButton(
-          onPressed: (){
-            CollectionReference collref=FirebaseFirestore.instance.collection('signup');
+        onPressed: () {
+          if (_formkey.currentState!.validate()) {
+            _formkey.currentState!.save();
+
+            // Move the Firestore database update logic here
+            CollectionReference collref = FirebaseFirestore.instance.collection('signup');
             collref.add({
-              'name':nameController.text,
-              'email':emailController.text,
-              'mobile':mobileController.text,
-              'gender':selectedGender,
-              'password':passwordController.text,
+              'name': nameController.text,
+              'email': emailController.text,
+              'mobile': mobileController.text,
+              'gender': selectedGender,
+              'password': passwordController.text,
             });
-          }, child: const Text('SignUp'),
-      )
+
+            // Navigate to the next page
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const BottomPage(),
+              ),
+            );
+          }
+        },
+        child: const Text('SignUp'),
+      ),
+
+
+      Center(
+        child: TextButton(
+          onPressed: () {
+            // Handle navigation to login page
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    LoginPage(), // Replace with your login page widget
+              ),
+            );
+          },
+          child: Text(
+            'Already have an account? Login here',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              // Consider using app theme colors or consistent styling
+            ),
+          ),
+        ),
+      ),
     ],
     ),
     ),
     ),
         ),
+        ),
+    ),
         ),
     );
   }
