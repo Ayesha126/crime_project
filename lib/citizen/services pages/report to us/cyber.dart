@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crime_track_master/police/widgetsPolice/titlebar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -10,12 +11,9 @@ class Cyber extends StatefulWidget {
 
 class _CyberState extends State<Cyber> {
   final _formKey = GlobalKey<FormState>();
-  String _offencecategory = '';
-  String _policedistrict = '';
-  String _fraudNumber = '';
-  String _typeoffraud = '';
-  String _remark = '';
-
+  final _fraudNumber=TextEditingController();
+  final _typeoffraud=TextEditingController();
+  final _remark=TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Theme(
@@ -59,6 +57,7 @@ class _CyberState extends State<Cyber> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
                   child: TextFormField(
+                    controller: _fraudNumber,
                     cursorColor: Color(0xFF90CAF9),
                     decoration: InputDecoration(
                       labelText: 'Fraud Number',
@@ -66,21 +65,23 @@ class _CyberState extends State<Cyber> {
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter Fraud Number';
+                        return 'Please enter Fraud mobile number';
+                      }
+                      if (value.length != 10) {
+                        return 'Please enter a valid 10-digit mobile number';
                       }
                       return null;
                     },
-                    onChanged: (value) {
-                      setState(() {
-                        _fraudNumber = value;
-                      });
-                    },
+
+
+
                   ),
                 ),
                 SizedBox(height: 15),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
                   child: TextFormField(
+                    controller: _typeoffraud,
                     cursorColor: Color(0xFF90CAF9),
                     decoration: InputDecoration(
                       labelText: 'Type Of Fraud',
@@ -92,17 +93,16 @@ class _CyberState extends State<Cyber> {
                       }
                       return null;
                     },
-                    onChanged: (value) {
-                      setState(() {
-                        _typeoffraud = value;
-                      });
-                    },
+
+
+
                   ),
                 ),
                 SizedBox(height: 15),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
                   child: TextFormField(
+                    controller: _remark,
                     cursorColor: Color(0xFF90CAF9),
                     decoration: InputDecoration(
                       labelText: 'Remark',
@@ -111,11 +111,9 @@ class _CyberState extends State<Cyber> {
                       ),
                       prefixIcon: Icon(Icons.description), // Add icon on the left side
                     ),
-                    onChanged:  (value) {
-                      setState(() {
-                        _remark = value;
-                      });
-                    },
+
+
+
                     maxLines: 5,
                   ),
                 ),
@@ -128,10 +126,12 @@ class _CyberState extends State<Cyber> {
                       // Validate the form before submission
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save(); // Save form data
-                        String details =
-                            'Fraud Number: $_fraudNumber\n'
-                            'Type of Fraud: $_typeoffraud\n'
-                            'Remark: $_remark';
+                        CollectionReference collref = FirebaseFirestore.instance.collection('cyberfir');
+                        collref.add({
+                          'Fraud Number': _fraudNumber.text,
+                          'Type of Fraud': _typeoffraud.text,
+                          'Remark': _remark.text,
+                        });
                         Navigator.pop(context);
                       }
                     },

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crime_track_master/police/widgetsPolice/titlebar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -10,12 +11,14 @@ class FIRPage extends StatefulWidget {
 
 class _FIRPageState extends State<FIRPage> {
   final _formKey = GlobalKey<FormState>();
-  String _complainantName = '';
-  String _complainantContact = '';
-  String _relationshipToVictim = '';
-  String _incidentDate = '';
-  String _incidentType = '';
-  String _incidentDetails = '';
+  final _victimaddress = TextEditingController();
+  final _victimName = TextEditingController();
+  final _complainantName = TextEditingController();
+  final _complainantContact = TextEditingController();
+  final _relationshipToVictim = TextEditingController();
+  final _incidentDate = TextEditingController();
+  final _incidentType = TextEditingController();
+  final _incidentDetails = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +63,48 @@ class _FIRPageState extends State<FIRPage> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
                   child: TextFormField(
+                    controller: _victimName,
+                    cursorColor: Color(0xFF90CAF9),
+                    decoration: InputDecoration(
+                      labelText: 'Victim Name',
+                      prefixIcon: Icon(Icons.person), // Add icon on the left side
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter Victim name';
+                      }
+                      return null;
+                    },
+
+
+
+                  ),
+                ),
+                SizedBox(height: 15),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.0),
+                  child: TextFormField(
+                    controller: _victimaddress ,
+                    cursorColor: Color(0xFF90CAF9),
+                    decoration: InputDecoration(
+                      labelText: 'Victim Address',
+                      prefixIcon: Icon(Icons.dehaze_outlined), // Add icon on the left side
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter Victim Address';
+                      }
+                      return null;
+                    },
+
+
+                  ),
+                ),
+                SizedBox(height: 15),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.0),
+                  child: TextFormField(
+                    controller: _complainantName,
                     cursorColor: Color(0xFF90CAF9),
                     decoration: InputDecoration(
                       labelText: 'Complainant Name',
@@ -71,17 +116,15 @@ class _FIRPageState extends State<FIRPage> {
                       }
                       return null;
                     },
-                    onChanged: (value) {
-                      setState(() {
-                        _complainantName = value;
-                      });
-                    },
+
+
                   ),
                 ),
                 SizedBox(height: 15),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
                   child: TextFormField(
+                    controller:_complainantContact ,
                     cursorColor: Color(0xFF90CAF9),
                     decoration: InputDecoration(
                       labelText: 'Complainant Contact',
@@ -93,17 +136,15 @@ class _FIRPageState extends State<FIRPage> {
                       }
                       return null;
                     },
-                    onChanged: (value) {
-                      setState(() {
-                        _complainantContact = value;
-                      });
-                    },
+
+
                   ),
                 ),
                 SizedBox(height: 15),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
                   child: TextFormField(
+                    controller:  _relationshipToVictim,
                     cursorColor: Color(0xFF90CAF9),
                     decoration: InputDecoration(
                       labelText: 'Relationship to Victim (if any)',
@@ -115,17 +156,15 @@ class _FIRPageState extends State<FIRPage> {
                       }
                       return null;
                     },
-                    onChanged: (value) {
-                      setState(() {
-                        _relationshipToVictim = value;
-                      });
-                    },
+
+
                   ),
                 ),
                 SizedBox(height: 15),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
                   child: TextFormField(
+                    controller: _incidentDate,
                     cursorColor: Color(0xFF90CAF9),
                     decoration: InputDecoration(
                       labelText: 'Incident Date',
@@ -137,17 +176,15 @@ class _FIRPageState extends State<FIRPage> {
                       }
                       return null;
                     },
-                    onChanged: (value) {
-                      setState(() {
-                        _incidentDate = value;
-                      });
-                    },
+
+
                   ),
                 ),
                 SizedBox(height: 15),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
                   child: TextFormField(
+                    controller:  _incidentType,
                     cursorColor: Color(0xFF90CAF9),
                     decoration: InputDecoration(
                       labelText: 'Incident Type',
@@ -159,17 +196,15 @@ class _FIRPageState extends State<FIRPage> {
                       }
                       return null;
                     },
-                    onChanged: (value) {
-                      setState(() {
-                        _incidentType = value;
-                      });
-                    },
+
+
                   ),
                 ),
                 SizedBox(height: 15),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
                   child: TextFormField(
+                    controller:_incidentDetails ,
                     cursorColor: Color(0xFF90CAF9),
                     decoration: InputDecoration(
                       labelText: 'Incident Details',
@@ -184,11 +219,8 @@ class _FIRPageState extends State<FIRPage> {
                       }
                       return null;
                     },
-                    onChanged: (value) {
-                      setState(() {
-                        _incidentDetails = value;
-                      });
-                    },
+
+
                     maxLines: 5,
                   ),
                 ),
@@ -200,14 +232,18 @@ class _FIRPageState extends State<FIRPage> {
                     onPressed: () {
                       // Validate the form before submission
                       if (_formKey.currentState!.validate()) {
-                        _formKey.currentState!.save(); // Save form data
-                        String details =
-                            'Complainant Name: $_complainantName\n'
-                            'Complainant Contact: $_complainantContact\n'
-                            'Relationship to Victim: $_relationshipToVictim\n'
-                            'Incident Date: $_incidentDate\n'
-                            'Incident Type: $_incidentType\n'
-                            'Incident Details: $_incidentDetails';
+                        _formKey.currentState!.save();
+                        CollectionReference collref = FirebaseFirestore.instance.collection('fir');
+                        collref.add({
+                        'Victim Name': _victimName.text,
+                        'Victim Address': _victimaddress.text,
+                        'Complainant Name': _complainantName.text,
+                        'Complainant Contact': _complainantContact.text,
+                        'Relationship to Victim': _relationshipToVictim.text,
+                        'Incident Date': _incidentDate.text,
+                        'Incident Type': _incidentType.text,
+                        'Incident Details': _incidentDetails.text,
+                        });// Save form data
                         Navigator.pop(context);
                       }
                     },
@@ -233,3 +269,9 @@ class _FIRPageState extends State<FIRPage> {
     );
   }
 }
+
+//onChanged: (value) {
+//setState(() {
+//_incidentDetails = value;
+//});
+//},

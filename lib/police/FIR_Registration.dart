@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crime_track_master/police/widgetsPolice/titlebar.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +10,32 @@ class FIRRegistrationPage extends StatefulWidget {
 }
 class _FIRRegistrationPageState extends State<FIRRegistrationPage> {
   List<String> _firDetails = [];
+
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    // Call the function to fetch data when the widget is first created
+    fetchDataFromFirestore();
+  }
+
+  void fetchDataFromFirestore() async {
+    try {
+      // Assuming you have a collection named 'fir_collection' in Firestore
+      QuerySnapshot querySnapshot = await _firestore.collection('fir').get();
+
+      // Loop through the documents and add details to the list
+      querySnapshot.docs.forEach((doc) {
+        String details = doc['Incident Details'];
+        setState(() {
+          _firDetails.add(details);
+        });
+      });
+    } catch (e) {
+      print('Error fetching data from Firestore: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
