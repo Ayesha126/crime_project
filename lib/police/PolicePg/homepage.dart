@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:crime_track_master/police/widgetsPolice/titlebar.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'caseDisplay.dart';
 import 'caseRegister.dart';
 
 class HomePage extends StatelessWidget {
@@ -140,7 +141,7 @@ class HomePage extends StatelessWidget {
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => CaseRegistrationPage()),
+                          MaterialPageRoute(builder: (context) => CaseDisplayPage()),
                         );
                       },
                       child: Column(

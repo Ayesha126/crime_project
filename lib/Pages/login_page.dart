@@ -1,4 +1,5 @@
- import 'package:crime_track_master/Pages/signup_page.dart';
+ import 'package:crime_track_master/Pages/signup.dart';
+import 'package:crime_track_master/Pages/signup_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -97,7 +98,7 @@ class LoginPage extends StatefulWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => SignUpPage(), // Replace with your sign-up page widget
+                                  builder: (context) => SignUp(), // Replace with your sign-up page widget
                                 ),
                               );
                             },
