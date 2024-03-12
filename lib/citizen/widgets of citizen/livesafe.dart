@@ -31,8 +31,8 @@ class LiveSafe extends StatelessWidget {
         children: [
           HospitalCard(onMapFunction: openMap),
           PoliceStationCard(onMapFunction: openMap),
-          PharmacyCard(onMapFunction: openMap),
-          BusStationCard(onMapFunction: openMap),
+          SOSCard(),
+          FIRCard(),
         ],
       ),
     );

@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class PharmacyCard extends StatelessWidget {
-  final Function? onMapFunction;
-  const PharmacyCard({Key? key,this.onMapFunction}) : super(key: key);
+import '../services pages/sos.dart';
+
+class SOSCard extends StatelessWidget {
+
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class PharmacyCard extends StatelessWidget {
         children: [
           InkWell(
             onTap: () {
-              onMapFunction!('pharmacies near me');
+              sendDistressMessage(['+918000058387', '+917405290860', '+919104109252']);
             },
             child: Card(
               elevation: 3,
@@ -24,14 +25,14 @@ class PharmacyCard extends StatelessWidget {
                 height: 50,
                 width: 50,
                 child: Center(
-                  child: Image.asset('assets/images/pharmacy.png',
+                  child: Image.asset('images/sos.png',
                     height: 32,
                   ),
                 ),
               ),
             ),
           ),
-          Center(child: Text("Pharmacies") ,)
+          Center(child: Text("SOS") ,)
         ],
       ),
     );

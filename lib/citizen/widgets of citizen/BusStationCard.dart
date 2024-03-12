@@ -1,9 +1,8 @@
+import 'package:crime_track_master/citizen/services%20pages/report%20to%20us/fir.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class BusStationCard extends StatelessWidget {
-  final Function? onMapFunction;
-  const BusStationCard({Key? key,this.onMapFunction}) : super(key: key);
+class FIRCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -11,27 +10,32 @@ class BusStationCard extends StatelessWidget {
       padding: const EdgeInsets.only(left: 20),
       child: Column(
         children: [
-          InkWell(
+          GestureDetector(
             onTap: () {
-              onMapFunction!('Bus stop near me');
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => FIRPage()),
+              );
             },
-            child: Card(
-              elevation: 3,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Container(
-                height: 50,
-                width: 50,
-                child: Center(
-                  child: Image.asset('assets/images/bus-stop.png',
-                    height: 32,
+            child: InkWell(
+              child: Card(
+                elevation: 3,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Container(
+                  height: 50,
+                  width: 50,
+                  child: Center(
+                    child: Image.asset('images/report.png',
+                      height: 32,
+                    ),
                   ),
                 ),
               ),
             ),
           ),
-          Center(child: Text("Bus Stations") ,),
+          Center(child: Text("FIR") ,),
         ],
       ),
     );
