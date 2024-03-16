@@ -185,8 +185,6 @@ class _SignUpState extends State<SignUp> {
         },
         child: const Text('Signup'),
       ),
-
-
       Center(
         child: TextButton(
           onPressed: () {

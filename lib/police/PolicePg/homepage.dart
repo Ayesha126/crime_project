@@ -7,7 +7,6 @@ import 'package:crime_track_master/police/widgetsPolice/passwordbtn.dart';
 import 'package:flutter/material.dart';
 import 'package:crime_track_master/police/widgetsPolice/titlebar.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'caseDisplay.dart';
 import 'caseRegister.dart';
 
@@ -59,166 +58,170 @@ class HomePage extends StatelessWidget {
           SizedBox(height: 8),
           MiddleTitleBar(title: 'Services', height: 45),
           SizedBox(height: 8),
-          Container(
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: Color(0xFFFF2400), // Background color of the title bar
-                width:1.5, // Adjust the border width as needed
+          Padding(
+            padding: const EdgeInsets.only(
+                left: 8.0,  bottom: 8.0,right:8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Color(0xFFFF2400), // Background color of the title bar
+                  width:1.5, // Adjust the border width as needed
+                ),
+                borderRadius: BorderRadius.circular(10.0), // Adjust the border radius as needed
               ),
-              borderRadius: BorderRadius.circular(10.0), // Adjust the border radius as needed
-            ),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround ,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        // Navigate to the services page when the image is tapped
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => FIRRegistrationPage()),
-                        );
-                      },
-                      child: Column(
-                        children: [
-                          SizedBox(height: 8),
-                          Image.asset(
-                            'images/img.png', // Replace with your image icon asset path
-                            height: 69, // Adjust the height as needed
-                          ),
-                          SizedBox(height: 10),
-                          Text(
-                            'FIR Registration',
-                            style: GoogleFonts.merriweather(
-                              fontSize: 15, // Adjust the font size as needed
-                              color: Colors.black,
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround ,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          // Navigate to the services page when the image is tapped
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => FIRRegistrationPage()),
+                          );
+                        },
+                        child: Column(
+                          children: [
+                            SizedBox(height: 8),
+                            Image.asset(
+                              'images/fir.png', // Replace with your image icon asset path
+                              height: 69, // Adjust the height as needed
                             ),
-                          ),
-                        ],
+                            SizedBox(height: 10),
+                            Text(
+                              'FIR Registration',
+                              style: GoogleFonts.merriweather(
+                                fontSize: 15, // Adjust the font size as needed
+                                color: Colors.black,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => DetailsButton(onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => StaffDisplayPage(staffDetails: [],),
-                                ),
-                              );
-                            },),
+                      InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => DetailsButton(onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => StaffDisplayPage(staffDetails: [],),
+                                  ),
+                                );
+                              },),
 
-                          ),
-                        );
-                      },
-                      child: Column(
-                        children: [
-                          SizedBox(height: 8),
-                          Image.asset(
-                            'images/police.png', // Replace with your image icon asset path
-                            height: 71, // Adjust the height as needed
-                          ),
-                          SizedBox(height: 8),
-                          Text(
-                            'Staff Details',
-                            style: GoogleFonts.merriweather(
-                              fontSize: 15, // Adjust the font size as needed
-                              color: Colors.black,
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => CaseDisplayPage()),
-                        );
-                      },
-                      child: Column(
-                        children: [
-                          Image.asset(
-                            'images/archive.png',
-                            height: 70,
-                          ),
-                          SizedBox(height: 10),
-                          Text(
-                            'Case Registartion',
-                            style: GoogleFonts.merriweather(
-                              fontSize: 15,
-                              color: Colors.black,
+                          );
+                        },
+                        child: Column(
+                          children: [
+                            SizedBox(height: 8),
+                            Image.asset(
+                              'images/police.png', // Replace with your image icon asset path
+                              height: 71, // Adjust the height as needed
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => SettingsPage()),
-                        );
-                      },
-                      child: Column(
-                        children: [
-                          Image.asset(
-                            'images/setting.png',
-                            height: 67,
-                          ),
-                          SizedBox(height: 10),
-                          Text(
-                            'Settings',
-                            style: GoogleFonts.merriweather(
-                              fontSize: 15,
-                              color: Colors.black,
+                            SizedBox(height: 8),
+                            Text(
+                              'Staff Details',
+                              style: GoogleFonts.merriweather(
+                                fontSize: 15, // Adjust the font size as needed
+                                color: Colors.black,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 15),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        // Navigate to the services page when the image is tapped
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => ServicesPage()),
-                        );
-                      },
-                      child: Column(
-                        children: [
-                          Image.asset(
-                            'images/next.png', // Replace with your image icon asset path
-                            height: 65, // Adjust the height as needed
-                          ),
-                          SizedBox(height: 10),
-                          Text(
-                            'View all',
-                            style: GoogleFonts.merriweather(
-                              fontSize: 15, // Adjust the font size as needed
-                              color: Colors.black,
+                    ],
+                  ),
+                  SizedBox(height: 15),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => CaseDisplayPage()),
+                          );
+                        },
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              'images/case.png',
+                              height: 72,
                             ),
-                          ),
-                        ],
+                            SizedBox(height: 10),
+                            Text(
+                              'Case Registartion',
+                              style: GoogleFonts.merriweather(
+                                fontSize: 15,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => SettingsPage()),
+                          );
+                        },
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              'images/archive.png',
+                              height: 85,
+                            ),
+
+                            Text(
+                              'Archive Files',
+                              style: GoogleFonts.merriweather(
+                                fontSize: 15,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          // Navigate to the services page when the image is tapped
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => ServicesPage()),
+                          );
+                        },
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              'images/wanted.png', // Replace with your image icon asset path
+                              height: 75, // Adjust the height as needed
+                            ),
+                            SizedBox(height: 5),
+                            Text(
+                              'Wanted List',
+                              style: GoogleFonts.merriweather(
+                                fontSize: 15, // Adjust the font size as needed
+                                color: Colors.black,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ], // Close children of the Column widget
