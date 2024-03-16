@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crime_track_master/police/widgetsPolice/titlebar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,6 +8,7 @@ class FIRRegistrationPage extends StatefulWidget {
   @override
   _FIRRegistrationPageState createState() => _FIRRegistrationPageState();
 }
+
 class _FIRRegistrationPageState extends State<FIRRegistrationPage> {
   List<String> _firDetails = [];
 
@@ -21,36 +23,54 @@ class _FIRRegistrationPageState extends State<FIRRegistrationPage> {
             SizedBox(height: 10),
             Text(
               'FIR Details:',
-              style: GoogleFonts.merriweather( // Example of changing font to Open Sans
-            textStyle: const TextStyle(
-            fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.black, // Background color of the title bar
+              style: GoogleFonts.merriweather(
+                textStyle: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
             ),
-      ),),
             SizedBox(height: 10),
-            Expanded(
-              child: ListView.builder(
-                itemCount: _firDetails.length,
-                itemBuilder: (context, index) {
-                  return Card(
-                    color: Color(0xFFFECACB),
-                    elevation: 3,
-                    margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text(
-                        _firDetails[index],
-                  style: GoogleFonts.merriweather( // Example of changing font to Open Sans
-                  textStyle: const TextStyle(
-                  fontSize: 14,
-                    color: Color(0xFF620304),
+            StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore.instance.collection('fir').snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  final firs = snapshot.data?.docs.reversed.toList();
+                  List<Widget> firwidgets = [];
+                  for (var fir in firs!) {
+                    firwidgets.add(
+                      Card(
+                        margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                        child: Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('FIR ID: ${fir['FIR ID']}'),
+                              Text('Victim Name: ${fir['Victim Name']}'),
+                              Text('Victim Address: ${fir['Victim Address']}'),
+                              Text('Complainant Name: ${fir['Complainant Name']}'),
+                              Text('Complainant Contact: ${fir['Complainant Contact']}'),
+                              Text('Relationship to Victim: ${fir['Relationship to Victim']}'),
+                              Text('Incident Date: ${fir['Incident Date']}'),
+                              Text('Incident Type: ${fir['Incident Type']}'),
+                              Text('Incident Details: ${fir['Incident Details']}'),
+                            ],
+                          ),
                         ),
                       ),
+                    );
+                  }
+                  return Expanded(
+                    child: ListView(
+                      children: firwidgets,
                     ),
-                  ));
-                },
-              ),
+                  );
+                } else {
+                  return CircularProgressIndicator();
+                }
+              },
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -70,16 +90,17 @@ class _FIRRegistrationPageState extends State<FIRRegistrationPage> {
                   );
                 },
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFF7B0305)), // Change color here
+                  backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFF7B0305)),
                   foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
                 ),
-                child: Text('Create new FIR',
-                    style: GoogleFonts.merriweather( // Example of changing font to Open Sans
-                      textStyle: const TextStyle(
-                        fontSize: 18,
-                        color: Colors.white, // Background color of the title bar
-                      ),
+                child: Text(
+                  'Create new FIR',
+                  style: GoogleFonts.merriweather(
+                    textStyle: const TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
                     ),
+                  ),
                 ),
               ),
             ),

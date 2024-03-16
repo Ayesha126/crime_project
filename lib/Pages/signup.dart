@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -165,7 +166,8 @@ class _SignUpState extends State<SignUp> {
             _formkey.currentState!.save();
 
             // Move the Firestore database update logic here
-            CollectionReference collref = FirebaseFirestore.instance.collection('signup');
+            CollectionReference collref = FirebaseFirestore.instance.collection(
+                'profile');
             collref.add({
               'name': nameController.text,
               'email': emailController.text,
@@ -173,17 +175,43 @@ class _SignUpState extends State<SignUp> {
               'gender': selectedGender,
               'password': passwordController.text,
             });
-
-            // Navigate to the next page
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const BottomPage(),
-              ),
-            );
+            FirebaseAuth.instance
+                .createUserWithEmailAndPassword(
+              email: emailController.text,
+              password: passwordController.text,
+            )
+                .then((value) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                  const BottomPage(),
+                ),
+              );
+            }).catchError((error) {
+              _showErrorDialog(context,
+                  'Signup failed. Please try again later.');
+            });
+          }
+          else {
+            _showErrorDialog(context, 'Please fix the errors in the form.');
           }
         },
         child: const Text('Signup'),
+        style: ButtonStyle(
+          backgroundColor:
+          MaterialStateColor.resolveWith((states) {
+            if (states.contains(MaterialState.pressed)) {
+              return Colors.black26;
+            }
+            return Colors.white;
+          }),
+          shape:
+          MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30)),
+          ),
+        ),
       ),
       Center(
         child: TextButton(
@@ -214,6 +242,23 @@ class _SignUpState extends State<SignUp> {
         ),
     ),
         ),
+    );
+  }
+  void _showErrorDialog(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text('An Error Occurred'),
+        content: Text(message),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.of(ctx).pop();
+            },
+            child: Text('Okay'),
+          )
+        ],
+      ),
     );
   }
 }

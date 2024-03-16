@@ -1,3 +1,5 @@
+import 'package:crime_track_master/Pages/login_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +18,18 @@ Widget build(BuildContext context) {
       centerTitle: true,
       elevation: 0,
       automaticallyImplyLeading: false,
+    ),
+    body: Center(
+      child: ElevatedButton(onPressed: (){
+        FirebaseAuth.instance.signOut().then((value) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => LoginPage(),
+            ),
+          );
+        });
+      }, child: Text("LogOut")),
     ),
     );
 }
