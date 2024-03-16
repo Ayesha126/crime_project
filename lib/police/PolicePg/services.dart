@@ -157,10 +157,10 @@ class ServiceTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double iconHeight = 77; // Default icon height
+    double iconHeight = 75; // Default icon height
     // Adjust icon height based on service name
     if (service.name == 'Crime Scene Protocols') {
-      iconHeight = 82; // Increase the size for Crime Scene Protocols
+      iconHeight = 85; // Increase the size for Crime Scene Protocols
     }
 
     return GestureDetector(
