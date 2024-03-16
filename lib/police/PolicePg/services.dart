@@ -1,3 +1,4 @@
+import 'package:crime_track_master/police/PolicePg/protocolPage.dart';
 import 'package:crime_track_master/police/PolicePg/wantedisplay.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,6 +9,8 @@ import '../FIR_Registration.dart';
 import '../widgetsPolice/passwordbtn.dart';
 import 'archvFiles.dart';
 import 'caseDisplay.dart';
+import 'checklist.dart';
+import 'complaintPage.dart';
 import 'homepage.dart';
 
 class ServicesPage extends StatefulWidget {
@@ -22,8 +25,12 @@ class _ServicesPageState extends State<ServicesPage> {
     ServiceItem('Staff Details', 'images/police.png',
         StaffDisplayPage(staffDetails: [],)),
     ServiceItem('Case Registration', 'images/case.png', CaseDisplayPage()),
-    ServiceItem('Archive Files', 'images/archive.png', ArchiveFilesPage()),
     ServiceItem('Wanted List', 'images/wanted.png', WantedDisplayPage()),
+    ServiceItem('Crime Scene Checklist', 'images/list1.png', CrimeSceneChecklistPage()),
+    ServiceItem('Archive Files', 'images/archive.png', ArchiveFilesPage()),
+    ServiceItem('Crime Scene Protocols', 'images/app.png', ProtocolPage()), // Add this line to services list
+    ServiceItem('Complaints', 'images/comp.png', ComplaintPage()),// Add this line to services list
+
   ];
   List<ServiceItem> filteredServices = [];
 
@@ -101,6 +108,7 @@ class _ServicesPageState extends State<ServicesPage> {
       ),
       borderRadius: BorderRadius.circular(24.0), // Adjust border radius as needed
     );
+
     if (filteredServices.length == 1) {
       return Padding(
         padding: const EdgeInsets.all(8.0),
@@ -126,10 +134,11 @@ class _ServicesPageState extends State<ServicesPage> {
         );
         rows.add(SizedBox(height: 10));
       }
-
+      if (rows.length % 2 == 1) {
+        rows.add(SizedBox(height: 10)); // Add extra spacing for odd number of rows
+      }
       return Padding(
-        padding: const EdgeInsets.only(
-            left: 10.0,  bottom: 8.0,right:10.0),
+        padding: const EdgeInsets.only(left: 10.0, bottom: 8.0, right: 10.0, top: 8.0), // Adjust padding as needed
         child: Container(
             decoration: boxDecoration, // Apply border decoration to the container
             child: Column(
@@ -141,7 +150,6 @@ class _ServicesPageState extends State<ServicesPage> {
     }
   }
 }
-
 class ServiceTile extends StatelessWidget {
   final ServiceItem service;
 
@@ -149,20 +157,39 @@ class ServiceTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double iconHeight = 75; // Default icon height
+    // Adjust icon height based on service name
+    if (service.name == 'Crime Scene Protocols') {
+      iconHeight = 85; // Increase the size for Crime Scene Protocols
+    }
+
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => service.page),
-        );
+        if (service.name == 'Staff Details') {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => DetailsButton(onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => StaffDisplayPage(staffDetails: []),
+                ),
+              );
+            })),
+          );
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => service.page),
+          );
+        }
       },
       child: Column(
         children: [
           Image.asset(
             service.iconPath,
-            height: 75,
+            height: iconHeight,
           ),
-          SizedBox(height: 8),
+          SizedBox(height: 5),
           Text(
             service.name,
             style: GoogleFonts.merriweather(
