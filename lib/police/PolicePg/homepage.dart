@@ -1,14 +1,12 @@
 import 'package:crime_track_master/police/PolicePg/FIR_Registration.dart';
-import 'package:crime_track_master/police/PolicePg/services.dart';
-import 'package:crime_track_master/police/PolicePg/settings.dart';
-import 'package:crime_track_master/police/PolicePg/staffDetails.dart';
+import 'package:crime_track_master/police/PolicePg/archvFiles.dart';
 import 'package:crime_track_master/police/PolicePg/staffDisplay.dart';
+import 'package:crime_track_master/police/PolicePg/wantedisplay.dart';
 import 'package:crime_track_master/police/widgetsPolice/passwordbtn.dart';
 import 'package:flutter/material.dart';
 import 'package:crime_track_master/police/widgetsPolice/titlebar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'caseDisplay.dart';
-import 'caseRegister.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -167,7 +165,7 @@ class HomePage extends StatelessWidget {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => SettingsPage()),
+                            MaterialPageRoute(builder: (context) => ArchiveFilesPage()),
                           );
                         },
                         child: Column(
@@ -198,7 +196,7 @@ class HomePage extends StatelessWidget {
                           // Navigate to the services page when the image is tapped
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => ServicesPage()),
+                            MaterialPageRoute(builder: (context) => WantedDisplayPage()),
                           );
                         },
                         child: Column(
