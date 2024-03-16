@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:crime_track_master/police/widgetsPolice/titlebar.dart';
@@ -31,30 +32,43 @@ class _CaseDisplayPageState extends State<CaseDisplayPage> {
               ),
             ),
             SizedBox(height: 10),
-            Expanded(
-              child: ListView.builder(
-                itemCount: _caseDetails.length,
-                itemBuilder: (context, index) {
-                  return Card(
-                    color: Color(0xFFFECACB),
-                    elevation: 3,
-                    margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text(
-                        _caseDetails[index],
-                        style: GoogleFonts.merriweather(
-                          textStyle: const TextStyle(
-                            fontSize: 14,
-                            color: Color(0xFF620304),
-                          ),
+          StreamBuilder<QuerySnapshot>(
+            stream: FirebaseFirestore.instance.collection('casereg').snapshots(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                final firs = snapshot.data?.docs.reversed.toList();
+                List<Widget> staffwidgets = [];
+                for (var casereg in firs!) {
+                  staffwidgets.add(
+                    Card(
+                      margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                      child: Padding(
+                        padding: EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Case Type: ${casereg['Case Type']}'),
+                            Text('Date and Time:${casereg['Date and Time']}'),
+                            Text('Evidence:${casereg['Evidence']}'),
+                            Text('Incident Details:${casereg['Incident Details']}'),
+                            Text('Location:${casereg['Location']}'),
+                            Text('Witness Information:${casereg['Witness Information']}'),
+                          ],
                         ),
                       ),
                     ),
                   );
-                },
-              ),
-            ),
+                }
+                return Expanded(
+                  child: ListView(
+                    children: staffwidgets,
+                  ),
+                );
+              } else {
+                return CircularProgressIndicator();
+              }
+            },
+          ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(

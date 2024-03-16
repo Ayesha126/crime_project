@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:crime_track_master/police/widgetsPolice/titlebar.dart';
 
@@ -15,12 +16,12 @@ class _CaseRegistrationPageState extends State<CaseRegistrationPage> {
 
 
   // Define variables to store case registration details
-  String _incidentDetails = '';
-  String _location = '';
+  final _incidentDetails = TextEditingController();
+  final _location = TextEditingController();
   DateTime? _dateTime;
-  String _caseType = '';
-  String _witnessInformation = '';
-  String _evidence = '';
+  final _caseType = TextEditingController();
+  final _witnessInformation = TextEditingController();
+  final _evidence = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +54,7 @@ class _CaseRegistrationPageState extends State<CaseRegistrationPage> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: TextFormField(
+                  controller:_incidentDetails ,
                   decoration: InputDecoration(
                     labelText: 'Incident Details',
                     prefixIcon: Icon(Icons.description), // Prefix icon
@@ -63,11 +65,7 @@ class _CaseRegistrationPageState extends State<CaseRegistrationPage> {
     }
     return null;
     },
-    onChanged: (value) {
-    setState(() {
-    _incidentDetails = value;
-    });
-    },
+
     maxLines: 5,
     ),
     ),
@@ -75,6 +73,7 @@ class _CaseRegistrationPageState extends State<CaseRegistrationPage> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: TextFormField(
+                  controller: _location,
                   decoration: InputDecoration(
                     labelText: 'Location',
                     prefixIcon: Icon(Icons.location_on), // Prefix icon
@@ -85,11 +84,7 @@ class _CaseRegistrationPageState extends State<CaseRegistrationPage> {
                     }
                     return null;
                     },
-                  onChanged: (value) {
-                      setState(() {
-                      _location = value;
-                      });
-                      },
+
     ),
     ),
               SizedBox(height: 16.0),
@@ -128,6 +123,7 @@ class _CaseRegistrationPageState extends State<CaseRegistrationPage> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: TextFormField(
+                  controller: _caseType,
                   decoration: InputDecoration(
                     labelText: 'Case Type',
                     prefixIcon: Icon(Icons.folder), // Prefix icon
@@ -138,17 +134,14 @@ class _CaseRegistrationPageState extends State<CaseRegistrationPage> {
     }
     return null;
     },
-    onChanged: (value) {
-    setState(() {
-    _caseType = value;
-    });
-    },
+
     ),
     ),
               SizedBox(height: 16.0),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: TextFormField(
+                  controller: _witnessInformation,
                   decoration: InputDecoration(
                     labelText: 'Witness Information',
                     prefixIcon: Icon(Icons.person), // Prefix icon
@@ -159,17 +152,13 @@ class _CaseRegistrationPageState extends State<CaseRegistrationPage> {
     }
     return null;
     },
-                  onChanged: (value) {
-                    setState(() {
-                      _witnessInformation = value;
-                    });
-                  },
                 ),
               ),
               SizedBox(height: 16.0),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: TextFormField(
+                  controller: _evidence,
                   decoration: InputDecoration(
                     labelText: 'Evidence',
                     prefixIcon: Icon(Icons.insert_drive_file_outlined), // Prefix icon
@@ -180,11 +169,7 @@ class _CaseRegistrationPageState extends State<CaseRegistrationPage> {
     }
     return null;
     },
-                  onChanged: (value) {
-                    setState(() {
-                      _evidence = value;
-                    });
-                  },
+
                 ),
               ),
               SizedBox(height: 16.0),
@@ -192,18 +177,23 @@ class _CaseRegistrationPageState extends State<CaseRegistrationPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: ElevatedButton(
                   onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                            _formKey.currentState!.save(); // Save form data
-                            String details =
-                            'Incident Details: $_incidentDetails\n'
-                            'Location : $_location\n'
-                            'Date and Time: ${_dateTime!.day}/${_dateTime!.month}/${_dateTime!.year}\n'
-                            'Case Type: $_caseType\n'
-                            'Witness Information: $_witnessInformation\n'
-                            'Evidence: $_evidence';
-                            widget.onSubmit(details);
-                            Navigator.pop(context);}
+                    if (_formKey.currentState!.validate()) {
+                      _formKey.currentState!.save();
+                      CollectionReference collref = FirebaseFirestore.instance.collection('casereg');
+                      collref.add({
+                        'Incident Details': _incidentDetails.text,
+                        'Location': _location.text,
+                        'Date and Time': _dateTime != null
+                            ? '${_dateTime!.day}/${_dateTime!.month}/${_dateTime!.year}'
+                            : '', // Corrected string concatenation
+                        'Case Type': _caseType.text, // Corrected string concatenation
+                        'Witness Information': _witnessInformation.text, // Added .text property
+                        'Evidence': _evidence.text,
+                      });
+                      Navigator.pop(context);
+                    }
                   },
+
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFF7B0305)), // Change color here
                     foregroundColor: MaterialStateProperty.all<Color>(Colors.white),

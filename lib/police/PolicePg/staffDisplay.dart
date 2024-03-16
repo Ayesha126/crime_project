@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:crime_track_master/police/PolicePg/staffDetails.dart';
 import 'package:crime_track_master/police/widgetsPolice/titlebar.dart';
@@ -15,83 +16,100 @@ class StaffDisplayPage extends StatefulWidget {
 class _StaffDisplayPageState extends State<StaffDisplayPage> {
   @override
   Widget build(BuildContext context) {
-    Color transparentColor = Color(0x7B0305); // Transparent color
+    // Transparent color
 
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const CustomTitleBar(title: 'Staff Details'), // Custom title bar
-            SizedBox(height: 10),
-            Text(
-              'Staff Details:', // Changed from 'FIR Details'
-              style: GoogleFonts.merriweather( // Example of changing font to Open Sans
-                textStyle: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black, // Background color of the title bar
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const CustomTitleBar(title: 'Staff Details'), // Custom title bar
+              SizedBox(height: 10),
+              Text(
+                'Staff Details:', // Changed from 'FIR Details'
+                style: GoogleFonts.merriweather( // Example of changing font to Open Sans
+                  textStyle: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black, // Background color of the title bar
+                  ),
                 ),
-              ),),
-            SizedBox(height: 20),
-            Expanded(
-              child: ListView.builder(
-                itemCount: widget.staffDetails.length,
-                itemBuilder: (context, index) {
-                  return Card(
-                      color: Color(0xFFFECACB),
-                      elevation: 3,
-                        margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text(
-                          widget.staffDetails[index],
-                          style: GoogleFonts.merriweather( // Example of changing font to Open Sans
-                            textStyle: const TextStyle(
-                              fontSize: 14,
-                              color: Color(0xFF620304),// Background color of the title bar
-                    ),
-                    ),
-                          textAlign: TextAlign.left,
-                    ),
-                    ));
-                  },
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => StaffDetailsPage(
-                        onSubmit: (details) {
-                          setState(() {
-                            // Update the parent's state with the new details
-                            widget.staffDetails.add(details);
-                          });
-                        },
+              SizedBox(height: 20),
+              StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance.collection('staffdetails').snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    final staffsdetail = snapshot.data?.docs.reversed.toList();
+                    List<Widget> staffwidgets = [];
+                    for (var staffdetails in staffsdetail!) {
+                      staffwidgets.add(
+                        Card(
+                          margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                          child: Padding(
+                            padding: EdgeInsets.all(10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Staff Department:  ${staffdetails['Staff Department']}'),
+                                Text('Staff Email:  ${staffdetails['Staff Email']}'),
+                                Text('Staff Name:  ${staffdetails['Staff Name']}'),
+                                Text('Staff Phone Number:  ${staffdetails['Staff Phone Number']}'),
+                                Text('Staff Position:  ${staffdetails['Staff Position']}'),
+                                Text('Staff ID:  ${staffdetails['Staff ID']}'),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+                    return ListView(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      children: staffwidgets,
+                    );
+                  } else {
+                    return CircularProgressIndicator();
+                  }
+                },
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => StaffDetailsPage(
+                          onSubmit: (details) {
+                            setState(() {
+                              // Update the parent's state with the new details
+                              widget.staffDetails.add(details);
+                            });
+                          },
+                        ),
+                      ),
+                    );
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        const Color(0xFF7B0305)), // Change color here
+                    foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                  ),
+                  child: Text(
+                    'Add new Staff ',
+                    style: GoogleFonts.merriweather( // Example of changing font to Open Sans
+                      textStyle: const TextStyle(
+                        fontSize: 18,
+                        color: Colors.white, // Background color of the title bar
                       ),
                     ),
-                  );
-                },
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                      const Color(0xFF7B0305)), // Change color here
-                  foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                ),
-                child: Text('Add new Staff ',
-                  style: GoogleFonts.merriweather( // Example of changing font to Open Sans
-                    textStyle: const TextStyle(
-                      fontSize: 18,
-                      color: Colors.white, // Background color of the title bar
-                    ),
                   ),
+                ),
               ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

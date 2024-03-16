@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../widgetsPolice/titlebar.dart';
@@ -11,12 +12,12 @@ class StaffDetailsPage extends StatefulWidget {
 
 class _StaffDetailsPageState extends State<StaffDetailsPage> {
   final _formKey = GlobalKey<FormState>();
-  String _staffName = '';
-  String _staffEmail = '';
-  String _staffPhoneNumber = '';
-  String _staffPosition = '';
-  String _staffDepartment = '';
-  String _staffId = '';
+  final _staffName = TextEditingController();
+  final _staffEmail = TextEditingController();
+  final _staffPhoneNumber = TextEditingController();
+  final _staffPosition = TextEditingController();
+  final _staffDepartment = TextEditingController();
+  final _staffId = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +49,7 @@ class _StaffDetailsPageState extends State<StaffDetailsPage> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
                   child: TextFormField(
+                    controller: _staffName,
                     cursorColor: Color(0xFF7B0305),
                     decoration: InputDecoration(
                       labelText: 'Staff Name',
@@ -59,17 +61,14 @@ class _StaffDetailsPageState extends State<StaffDetailsPage> {
                       }
                       return null;
                     },
-                    onChanged: (value) {
-                      setState(() {
-                        _staffName = value;
-                      });
-                    },
+
                   ),
                 ),
                 SizedBox(height: 15),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
                   child: TextFormField(
+                    controller: _staffEmail ,
                     cursorColor: Color(0xFF7B0305),
                     decoration: InputDecoration(
                       labelText: 'Staff Email',
@@ -81,17 +80,14 @@ class _StaffDetailsPageState extends State<StaffDetailsPage> {
                       }
                       return null;
                     },
-                    onChanged: (value) {
-                      setState(() {
-                        _staffEmail = value;
-                      });
-                    },
+
                   ),
                 ),
                 SizedBox(height: 15),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
                   child: TextFormField(
+                    controller:_staffPhoneNumber ,
                     cursorColor: Color(0xFF7B0305),
                     decoration: InputDecoration(
                       labelText: 'Staff Phone Number',
@@ -103,17 +99,14 @@ class _StaffDetailsPageState extends State<StaffDetailsPage> {
                       }
                       return null;
                     },
-                    onChanged: (value) {
-                      setState(() {
-                        _staffPhoneNumber = value;
-                      });
-                    },
+
                   ),
                 ),
                 SizedBox(height: 15),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
                   child: TextFormField(
+                    controller: _staffPosition,
                     cursorColor: Color(0xFF7B0305),
                     decoration: InputDecoration(
                       labelText: 'Staff Position',
@@ -125,17 +118,14 @@ class _StaffDetailsPageState extends State<StaffDetailsPage> {
                       }
                       return null;
                     },
-                    onChanged: (value) {
-                      setState(() {
-                        _staffPosition = value;
-                      });
-                    },
+
                   ),
                 ),
                 SizedBox(height: 15),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
                   child: TextFormField(
+                    controller: _staffDepartment,
                     cursorColor: Color(0xFF7B0305),
                     decoration: InputDecoration(
                       labelText: 'Staff Department',
@@ -147,17 +137,14 @@ class _StaffDetailsPageState extends State<StaffDetailsPage> {
                       }
                       return null;
                     },
-                    onChanged: (value) {
-                      setState(() {
-                        _staffDepartment = value;
-                      });
-                    },
+
                   ),
                 ),
                 SizedBox(height: 15),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
                   child: TextFormField(
+                    controller: _staffId ,
                     cursorColor: Color(0xFF7B0305),
                     decoration: InputDecoration(
                       labelText: 'Staff ID',
@@ -169,11 +156,7 @@ class _StaffDetailsPageState extends State<StaffDetailsPage> {
                       }
                       return null;
                     },
-                    onChanged: (value) {
-                      setState(() {
-                        _staffId = value;
-                      });
-                    },
+
                   ),
                 ),
                 SizedBox(height: 15),
@@ -184,15 +167,16 @@ class _StaffDetailsPageState extends State<StaffDetailsPage> {
                     onPressed: () {
                       // Validate the form before submission
                       if (_formKey.currentState!.validate()) {
-                        _formKey.currentState!.save(); // Save form data
-                        String details =
-                            'Staff Name: $_staffName\n'
-                            'Staff Email: $_staffEmail\n'
-                            'Staff Phone Number: $_staffPhoneNumber\n'
-                            'Staff Position: $_staffPosition\n'
-                            'Staff Department: $_staffDepartment\n'
-                            'Staff ID: $_staffId';
-                        widget.onSubmit(details);
+                        _formKey.currentState!.save();
+                        CollectionReference collref = FirebaseFirestore.instance.collection('staffdetails');// Save form data
+                         collref.add({
+                            'Staff Name': _staffName.text,
+                            'Staff Email': _staffEmail.text,
+                            'Staff Phone Number': _staffPhoneNumber.text,
+                            'Staff Position': _staffPosition.text,
+                            'Staff Department': _staffDepartment.text,
+                            'Staff ID': _staffId.text,
+                         });
                         Navigator.pop(context);
                       }
                     },

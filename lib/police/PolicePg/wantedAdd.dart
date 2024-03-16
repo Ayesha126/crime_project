@@ -10,13 +10,15 @@ class WantedInsertPage extends StatefulWidget {
 }
 
 class _WantedInsertPageState extends State<WantedInsertPage> {
-  TextEditingController nameController = TextEditingController();
-  TextEditingController photoUrlController = TextEditingController();
-  TextEditingController descriptionController = TextEditingController();
+  final nameController = TextEditingController();
+  final photoUrlController = TextEditingController();
+  final descriptionController = TextEditingController();
+  final crimeController = TextEditingController();
 
   String nameErrorText = '';
   String photoUrlErrorText = '';
   String descriptionErrorText = '';
+  String crimeErrorText = '';
   File? _image; // Add a variable to store the selected image
 
   @override
@@ -55,6 +57,15 @@ class _WantedInsertPageState extends State<WantedInsertPage> {
                       decoration: InputDecoration(
                         labelText: 'Name',
                         errorText: nameErrorText.isNotEmpty ? nameErrorText : null,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    TextField(
+                      cursorColor: Color(0xFF7B0305),
+                      controller: crimeController,
+                      decoration: InputDecoration(
+                        labelText: 'Crime',
+                        errorText: crimeErrorText.isNotEmpty ? crimeErrorText : null,
                       ),
                     ),
                     SizedBox(height: 10),
