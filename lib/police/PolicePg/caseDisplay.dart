@@ -3,12 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:crime_track_master/police/widgetsPolice/titlebar.dart';
 import 'caseRegister.dart';
-
 class CaseDisplayPage extends StatefulWidget {
   @override
   _CaseDisplayPageState createState() => _CaseDisplayPageState();
 }
-
 class _CaseDisplayPageState extends State<CaseDisplayPage> {
   List<String> _caseDetails = []; // List to hold case details
 
