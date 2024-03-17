@@ -1,3 +1,4 @@
+import 'package:crime_track_master/Pages/adminLogin.dart';
 import 'package:crime_track_master/Pages/signup.dart';
 import 'package:crime_track_master/police/widgetsPolice/navigation_menu.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -45,13 +46,13 @@ class _LoginPageState extends State<LoginPage> {
               Text(
                 'તમારી સુરક્ષા અમારી જવાબદારી છે',
                 style: TextStyle(
-                  color: Colors.lightGreenAccent,
+                  color: Colors.black,
                   fontSize: 25,
                 ),
               ),
               SizedBox(height: 30),
               Container(
-                height: MediaQuery.of(context).size.height / 2.3,
+                height: MediaQuery.of(context).size.height / 1.8,
                 width: MediaQuery.of(context).size.width * 0.9,
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -141,40 +142,97 @@ class _LoginPageState extends State<LoginPage> {
                           ],
                         ),
                       ),
-                      ElevatedButton(
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            // If the form is valid, proceed with login
-                            FirebaseAuth.instance
-                                .signInWithEmailAndPassword(
-                              email: emailController.text,
-                              password: passwordController.text,
-                            )
-                                .then((value) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const NavigationMenu(),
-                                ),
-                              );
-                            }).onError((error, stackTrace) {
-                              print("Error ${error.toString()}");
-                            });
-                          }
-                        },
-                        child: Text('Log In'),
-                        style: ButtonStyle(
-                          backgroundColor:
-                          MaterialStateColor.resolveWith((states) {
-                            if (states.contains(MaterialState.pressed)) {
-                              return Colors.black26;
+                      Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [Colors.red, Colors.blue],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              // If the form is valid, proceed with login
+                              FirebaseAuth.instance
+                                  .signInWithEmailAndPassword(
+                                email: emailController.text,
+                                password: passwordController.text,
+                              )
+                                  .then((value) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const NavigationMenu(),
+                                  ),
+                                );
+                              }).onError((error, stackTrace) {
+                                print("Error ${error.toString()}");
+                              });
                             }
-                            return Colors.white;
-                          }),
-                          shape:
-                          MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
+                          },
+                          child: Text('Log In'),
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                            ),
+                            backgroundColor: MaterialStateProperty.resolveWith((states) {
+                              // Set background color based on button states
+                              if (states.contains(MaterialState.pressed)) {
+                                // When button is pressed
+                                return Colors.transparent; // Use transparent color
+                              }
+                              // Normal state
+                              return Colors.transparent; // Use transparent color
+                            }),
+                            overlayColor: MaterialStateProperty.resolveWith((states) {
+                              // Set overlay color based on button states
+                              if (states.contains(MaterialState.pressed)) {
+                                // When button is pressed
+                                return Colors.transparent; // No overlay color when pressed
+                              }
+                              // Normal state
+                              return Colors.black12; // Default overlay color
+                            }),
+                            foregroundColor: MaterialStateProperty.resolveWith((states) {
+                              // Set text color based on button states
+                              if (states.contains(MaterialState.pressed)) {
+                                // When button is pressed
+                                return Colors.white; // Text color when pressed
+                              }
+                              // Normal state
+                              return Colors.white; // Default text color is white
+                            }),
+                            padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                              EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+                            ),
+                            textStyle: MaterialStateProperty.all<TextStyle>(
+                              TextStyle(fontSize: 16),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Center(
+                        child: TextButton(
+                          onPressed: () {
+                            // Handle navigation to login page
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    adLoginPage(), // Replace with your login page widget
+                              ),
+                            );
+                          },
+                          child: Text(
+                            'Login as Admin',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color:Colors.black ,
+                              // Consider using app theme colors or consistent styling
                             ),
                           ),
                         ),
