@@ -1,4 +1,5 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -172,14 +173,17 @@ class _adLoginPageState extends State<adLoginPage> {
                           child: ElevatedButton(
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
-                                // If the form is valid, proceed with login
-                                // Place your login logic here
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const NavigationMenu(),
-                                  ),
-                                );
+                                if(emailController.text=='Police@gmail.com'&& passwordController.text=='Police123890') {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (
+                                          context) => const NavigationMenu(),
+                                    ),
+                                  );
+                                }else {
+                                  print(Text("Wrong Email And Password"));
+                                }
                               }
                             },
                             child: Padding(

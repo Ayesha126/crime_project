@@ -183,7 +183,7 @@ class _SignUpState extends State<SignUp> {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                  const BottomPage(),
+                  LoginPage(),
                 ),
               );
             }).catchError((error) {

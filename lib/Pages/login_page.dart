@@ -143,48 +143,23 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       ElevatedButton(
-                        onPressed: () async {
+                        onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            // If the form is valid, proceed with login
-                            String enteredEmail = emailController.text;
-                            String enteredPassword = passwordController.text;
-
-                            try {
-                              // Authenticate with Firebase
-                              UserCredential userCredential =
-                              await FirebaseAuth.instance
-                                  .signInWithEmailAndPassword(
-                                email: enteredEmail,
-                                password: enteredPassword,
+                            FirebaseAuth.instance
+                                .signInWithEmailAndPassword(
+                              email: emailController.text,
+                              password: passwordController.text,
+                            )
+                                .then((value) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => BottomPage(),
+                                ),
                               );
-
-                              // Check if the entered email and password match the specific credentials
-                              if (enteredEmail == 'Police@email.com' &&
-                                  enteredPassword == 'Police123890') {
-                                // Navigate to a different screen if the credentials match
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => NavigationMenu(),
-                                  ),
-                                );
-                              } else {
-                                // Navigate to BottomPage for other users
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => BottomPage(),
-                                  ),
-                                );
-                              }
-                            } on FirebaseAuthException catch (e) {
-                              // Handle login errors
-                              if (e.code == 'user-not-found') {
-                                print('No user found for that email.');
-                              } else if (e.code == 'wrong-password') {
-                                print('Wrong password provided for that user.');
-                              }
-                            }
+                            }).onError((error, stackTrace) {
+                              print("Error ${error.toString()}");
+                            });
                           }
                         },
                         child: Text('Log In'),
@@ -197,15 +172,14 @@ class _LoginPageState extends State<LoginPage> {
                               return Colors.white;
                             },
                           ),
-                          shape:
-                          MaterialStateProperty.all<RoundedRectangleBorder>(
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30),
                             ),
                           ),
                         ),
-
                       ),
+
                       Center(
                         child: TextButton(
                           onPressed: () {
