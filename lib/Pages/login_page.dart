@@ -145,40 +145,55 @@ class _LoginPageState extends State<LoginPage> {
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             // If the form is valid, proceed with login
-                            FirebaseAuth.instance
-                                .signInWithEmailAndPassword(
-                              email: emailController.text,
-                              password: passwordController.text,
-                            )
-                                .then((value) {
+                            String enteredEmail = emailController.text;
+                            String enteredPassword = passwordController.text;
+
+                            // Check if the entered email and password match the specific credentials
+                            if (enteredEmail == 'specific@email.com' &&
+                                enteredPassword == 'specificpassword') {
+                              // Navigate to a different screen if the credentials match
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const NavigationMenu(),
+                                  builder: (context) => NavigationMenu(),
                                 ),
                               );
-                            }).onError((error, stackTrace) {
-                              print("Error ${error.toString()}");
-                            });
+                            } else {
+                              // Perform regular login with Firebase Auth if the credentials don't match
+                              FirebaseAuth.instance
+                                  .signInWithEmailAndPassword(
+                                email: enteredEmail,
+                                password: enteredPassword,
+                              )
+                                  .then((value) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const NavigationMenu(),
+                                  ),
+                                );
+                              }).onError((error, stackTrace) {
+                                print("Error ${error.toString()}");
+                              });
+                            }
                           }
                         },
                         child: Text('Log In'),
                         style: ButtonStyle(
-                          backgroundColor:
-                          MaterialStateColor.resolveWith((states) {
+                          backgroundColor: MaterialStateColor.resolveWith((states) {
                             if (states.contains(MaterialState.pressed)) {
                               return Colors.black26;
                             }
                             return Colors.white;
                           }),
-                          shape:
-                          MaterialStateProperty.all<RoundedRectangleBorder>(
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30),
                             ),
                           ),
                         ),
                       ),
+
                     ],
                   ),
                 ),

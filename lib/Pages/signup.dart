@@ -164,23 +164,21 @@ class _SignUpState extends State<SignUp> {
         onPressed: () {
           if (_formkey.currentState!.validate()) {
             _formkey.currentState!.save();
-
-            // Move the Firestore database update logic here
-            CollectionReference collref = FirebaseFirestore.instance.collection(
-                'profile');
-            collref.add({
-              'name': nameController.text,
-              'email': emailController.text,
-              'mobile': mobileController.text,
-              'gender': selectedGender,
-              'password': passwordController.text,
-            });
             FirebaseAuth.instance
                 .createUserWithEmailAndPassword(
               email: emailController.text,
               password: passwordController.text,
             )
                 .then((value) {
+              CollectionReference collref = FirebaseFirestore.instance.collection(
+                  'profile');
+              collref.add({
+                'name': nameController.text,
+                'email': emailController.text,
+                'mobile': mobileController.text,
+                'gender': selectedGender,
+                'password': passwordController.text,
+              });
               Navigator.push(
                 context,
                 MaterialPageRoute(
