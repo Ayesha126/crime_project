@@ -54,6 +54,7 @@ class _CaseRegistrationPageState extends State<CaseRegistrationPage> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: TextFormField(
+                  cursorColor: Color(0xFF7B0305),
                   controller:_incidentDetails ,
                   decoration: InputDecoration(
                     labelText: 'Incident Details',
@@ -73,6 +74,7 @@ class _CaseRegistrationPageState extends State<CaseRegistrationPage> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: TextFormField(
+                  cursorColor: Color(0xFF7B0305),
                   controller: _location,
                   decoration: InputDecoration(
                     labelText: 'Location',
@@ -106,6 +108,7 @@ class _CaseRegistrationPageState extends State<CaseRegistrationPage> {
                   },
                   child: AbsorbPointer(
                     child: TextFormField(
+                      cursorColor: Color(0xFF7B0305),
                       decoration: InputDecoration(
                         labelText: 'Date',
                         prefixIcon: Icon(Icons.calendar_today_outlined), // Prefix icon
@@ -124,6 +127,7 @@ class _CaseRegistrationPageState extends State<CaseRegistrationPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: TextFormField(
                   controller: _caseType,
+                  cursorColor: Color(0xFF7B0305),
                   decoration: InputDecoration(
                     labelText: 'Case Type',
                     prefixIcon: Icon(Icons.folder), // Prefix icon
@@ -142,6 +146,7 @@ class _CaseRegistrationPageState extends State<CaseRegistrationPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: TextFormField(
                   controller: _witnessInformation,
+                  cursorColor: Color(0xFF7B0305),
                   decoration: InputDecoration(
                     labelText: 'Witness Information',
                     prefixIcon: Icon(Icons.person), // Prefix icon
@@ -159,6 +164,7 @@ class _CaseRegistrationPageState extends State<CaseRegistrationPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: TextFormField(
                   controller: _evidence,
+                  cursorColor: Color(0xFF7B0305),
                   decoration: InputDecoration(
                     labelText: 'Evidence',
                     prefixIcon: Icon(Icons.insert_drive_file_outlined), // Prefix icon

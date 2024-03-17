@@ -42,10 +42,173 @@ class _CaseDisplayPageState extends State<CaseDisplayPage> {
                             Text('Incident Details:${casereg['Incident Details']}'),
                             Text('Location:${casereg['Location']}'),
                             Text('Witness Information:${casereg['Witness Information']}'),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                IconButton(
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        String caseType = casereg['Case Type'];
+                                        String dateTime = casereg['Date and Time'];
+                                        String evidence = casereg['Evidence'];
+                                        String incidentDetails = casereg['Incident Details'];
+                                        String location = casereg['Location'];
+                                        String witnessInfo = casereg['Witness Information'];
+                                        return Theme(
+                                            data: ThemeData(
+                                            brightness: Brightness.light,
+                                              inputDecorationTheme: InputDecorationTheme(
+                                                focusedBorder: UnderlineInputBorder(
+                                                  borderSide: BorderSide(color:Color(0xFF7B0305), // Set focused border color to red
+                                                ),
+                                        ),
+                                            )
+                                            ),
+                                          child: AlertDialog(
+                                            title: Text('Edit Case'),
+                                            content: SingleChildScrollView(
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  TextFormField(
+                                                    cursorColor: Color(0xFF7B0305),
+                                                    initialValue: caseType,
+                                                    decoration: InputDecoration(labelText: 'Case Type'),
+                                                    onChanged: (value) {
+                                                      caseType = value;
+                                                    },
+                                                  ),
+                                                  TextFormField(
+                                                    cursorColor: Color(0xFF7B0305),
+                                                    initialValue: dateTime,
+                                                    decoration: InputDecoration(labelText: 'Date and Time'),
+                                                    onChanged: (value) {
+                                                      dateTime = value;
+                                                    },
+                                                  ),
+                                                  TextFormField(
+                                                    cursorColor: Color(0xFF7B0305),
+                                                    initialValue: evidence,
+                                                    decoration: InputDecoration(labelText: 'Evidence'),
+                                                    onChanged: (value) {
+                                                      evidence = value;
+                                                    },
+                                                  ),
+                                                  TextFormField(
+                                                    cursorColor: Color(0xFF7B0305),
+                                                    initialValue: incidentDetails,
+                                                    decoration: InputDecoration(labelText: 'Incident Details'),
+                                                    onChanged: (value) {
+                                                      incidentDetails = value;
+                                                    },
+                                                  ),
+                                                  TextFormField(
+                                                    cursorColor: Color(0xFF7B0305),
+                                                    initialValue: location,
+                                                    decoration: InputDecoration(labelText: 'Location'),
+                                                    onChanged: (value) {
+                                                      location = value;
+                                                    },
+                                                  ),
+                                                  TextFormField(
+                                                    cursorColor: Color(0xFF7B0305),
+                                                    initialValue: witnessInfo,
+                                                    decoration: InputDecoration(labelText: 'Witness Information'),
+                                                    onChanged: (value) {
+                                                      witnessInfo = value;
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context); // Close the dialog
+                                                },
+                                                style: ButtonStyle(
+                                                  foregroundColor: MaterialStateProperty.all<Color>(const Color(0xFF7B0305)), // Change color here
+                                                  backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                                                ),
+                                                child: Text(
+                                                    'Cancel'
+                                                ),
+                                              ),
+                                              ElevatedButton(
+                                                onPressed: () {
+                                                  // Update the case details in the Firestore database
+                                                  FirebaseFirestore.instance.collection('casereg').doc(casereg.id).update({
+                                                    'Case Type': caseType,
+                                                    'Date and Time': dateTime,
+                                                    'Evidence': evidence,
+                                                    'Incident Details': incidentDetails,
+                                                    'Location': location,
+                                                    'Witness Information': witnessInfo,
+                                                  });
+                                                  Navigator.pop(context); // Close the dialog
+                                                },
+                                                style: ButtonStyle(
+                                                  backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFF7B0305)), // Change color here
+                                                  foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                                                ),
+                                                child: Text(
+                                                    'Save Changes'
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                  icon: Icon(Icons.edit),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                        title: Text('Delete Case'),
+                                        content: Text('Are you sure you want to delete this case?'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context); // Close the dialog
+                                            },
+                                            style: ButtonStyle(
+                                              foregroundColor: MaterialStateProperty.all<Color>(const Color(0xFF7B0305)), // Change color here
+                                              backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                                            ),
+                                            child: Text('Cancel'),
+                                          ),
+                                          ElevatedButton(
+                                            onPressed: () {
+                                              // Delete the case from Firestore
+                                              FirebaseFirestore.instance.collection('casereg').doc(casereg.id).delete();
+                                              Navigator.pop(context); // Close the dialog
+                                            },
+                                            style: ButtonStyle(
+                                              backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFF7B0305)), // Change color here
+                                              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                                            ),
+                                            child: Text('Delete'),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                  icon: Icon(Icons.delete),
+                                ),
+
+                              ],
+                            ),
                           ],
                         ),
                       ),
                     ),
+
                   );
                 }
                 return Expanded(

@@ -188,6 +188,7 @@ class _FIRFormPageState extends State<FIRFormPage> {
 
                   ),
                 ),
+
                 SizedBox(height: 15),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
