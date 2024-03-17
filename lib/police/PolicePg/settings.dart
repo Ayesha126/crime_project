@@ -1,5 +1,9 @@
-import 'package:crime_track_master/police/widgetsPolice/titlebar.dart';
+import 'package:crime_track_master/Pages/login_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../widgetsPolice/titlebar.dart';
 
 class SettingsPage extends StatelessWidget {
   @override
@@ -8,13 +12,25 @@ class SettingsPage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          CustomTitleBar(title: 'Settings Page'), // Custom title bar
-          Expanded(
-            child: Center(
-              child: Text(
-                'Welcome to the Settings Screen!',
-                style: TextStyle(fontSize: 24),
+          CustomTitleBar(title: 'Protocol Page'),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: ElevatedButton(
+              onPressed: () {
+                FirebaseAuth.instance.signOut().then((value) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => LoginPage(),
+                    ),
+                  );
+                });
+              },
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFF7B0305)),
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
               ),
+              child: Text("Log Out"),
             ),
           ),
         ],
