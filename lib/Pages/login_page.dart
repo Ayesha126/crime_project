@@ -142,58 +142,68 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           if (_formKey.currentState!.validate()) {
                             // If the form is valid, proceed with login
                             String enteredEmail = emailController.text;
                             String enteredPassword = passwordController.text;
 
-                            // Check if the entered email and password match the specific credentials
-                            if (enteredEmail == 'specific@email.com' &&
-                                enteredPassword == 'specificpassword') {
-                              // Navigate to a different screen if the credentials match
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => NavigationMenu(),
-                                ),
-                              );
-                            } else {
-                              // Perform regular login with Firebase Auth if the credentials don't match
-                              FirebaseAuth.instance
+                            try {
+                              // Authenticate with Firebase
+                              UserCredential userCredential =
+                              await FirebaseAuth.instance
                                   .signInWithEmailAndPassword(
                                 email: enteredEmail,
                                 password: enteredPassword,
-                              )
-                                  .then((value) {
+                              );
+
+                              // Check if the entered email and password match the specific credentials
+                              if (enteredEmail == 'Police@email.com' &&
+                                  enteredPassword == 'Police123890') {
+                                // Navigate to a different screen if the credentials match
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const NavigationMenu(),
+                                    builder: (context) => NavigationMenu(),
                                   ),
                                 );
-                              }).onError((error, stackTrace) {
-                                print("Error ${error.toString()}");
-                              });
+                              } else {
+                                // Navigate to BottomPage for other users
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => BottomPage(),
+                                  ),
+                                );
+                              }
+                            } on FirebaseAuthException catch (e) {
+                              // Handle login errors
+                              if (e.code == 'user-not-found') {
+                                print('No user found for that email.');
+                              } else if (e.code == 'wrong-password') {
+                                print('Wrong password provided for that user.');
+                              }
                             }
                           }
                         },
                         child: Text('Log In'),
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateColor.resolveWith((states) {
-                            if (states.contains(MaterialState.pressed)) {
-                              return Colors.black26;
-                            }
-                            return Colors.white;
-                          }),
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          backgroundColor: MaterialStateColor.resolveWith(
+                                (states) {
+                              if (states.contains(MaterialState.pressed)) {
+                                return Colors.black26;
+                              }
+                              return Colors.white;
+                            },
+                          ),
+                          shape:
+                          MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30),
                             ),
                           ),
                         ),
                       ),
-
                     ],
                   ),
                 ),
