@@ -215,28 +215,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                       ),
-                      Center(
-                        child: TextButton(
-                          onPressed: () {
-                            // Handle navigation to login page
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    adLoginPage(), // Replace with your login page widget
-                              ),
-                            );
-                          },
-                          child: Text(
-                            'Login as Admin',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color:Colors.black ,
-                              // Consider using app theme colors or consistent styling
-                            ),
-                          ),
-                        ),
-                      ),
+
                     ],
                   ),
                 ),
