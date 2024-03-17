@@ -41,11 +41,11 @@ class _StaffDisplayPageState extends State<StaffDisplayPage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('Staff Department:  ${staffdetails['Staff Department']}'),
-                                Text('Staff Email:  ${staffdetails['Staff Email']}'),
                                 Text('Staff Name:  ${staffdetails['Staff Name']}'),
+                                Text('Staff Email:  ${staffdetails['Staff Email']}'),
                                 Text('Staff Phone Number:  ${staffdetails['Staff Phone Number']}'),
-                                Text('Staff Position:  ${staffdetails['Staff Position']}'),
+                               Text('Staff Position:  ${staffdetails['Staff Position']}'),
+                                Text('Staff Department:  ${staffdetails['Staff Department']}'),
                                 Text('Staff ID:  ${staffdetails['Staff ID']}'),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
@@ -53,11 +53,11 @@ class _StaffDisplayPageState extends State<StaffDisplayPage> {
                                     IconButton(onPressed: (){
                                       showDialog(context: context,
                                           builder:(context){
-                                        String StaffDepartment=staffdetails['Staff Department'];
-                                        String StaffEmail= staffdetails['Staff Email'];
                                         String StaffName= staffdetails['Staff Name'];
+                                        String StaffEmail= staffdetails['Staff Email'];
                                         String StaffPhoneNumber=staffdetails['Staff Phone Number'];
                                         String Position=staffdetails['Staff Position'];
+                                        String StaffDepartment=staffdetails['Staff Department'];
                                         String StaffId=staffdetails['Staff ID'];
                                         return Theme(data: ThemeData(
                                           brightness: Brightness.light,
@@ -75,10 +75,10 @@ class _StaffDisplayPageState extends State<StaffDisplayPage> {
                                                   children: [
                                                     TextFormField(
                                                       cursorColor: Color(0xFF7B0305),
-                                                      initialValue: StaffDepartment,
-                                                      decoration: InputDecoration(labelText: 'Staff Department'),
+                                                      initialValue: StaffName,
+                                                      decoration: InputDecoration(labelText: 'Staff Name'),
                                                       onChanged: (value){
-                                                        StaffDepartment=value;
+                                                        StaffName =value;
                                                       },
                                                     ),
                                                     TextFormField(
@@ -91,18 +91,10 @@ class _StaffDisplayPageState extends State<StaffDisplayPage> {
                                                     ),
                                                     TextFormField(
                                                       cursorColor: Color(0xFF7B0305),
-                                                      initialValue: StaffName,
-                                                      decoration: InputDecoration(labelText: 'Staff Name'),
-                                                      onChanged: (value){
-                                                        StaffName =value;
-                                                      },
-                                                    ),
-                                                    TextFormField(
-                                                      cursorColor: Color(0xFF7B0305),
                                                       initialValue: StaffPhoneNumber,
                                                       decoration: InputDecoration(labelText: 'Staff Phone Number'),
                                                       onChanged: (value){
-                                                        StaffName =value;
+                                                        StaffPhoneNumber =value;
                                                       },
                                                     ),
                                                     TextFormField(
@@ -110,7 +102,15 @@ class _StaffDisplayPageState extends State<StaffDisplayPage> {
                                                       initialValue: Position,
                                                       decoration: InputDecoration(labelText: 'Staff Position'),
                                                       onChanged: (value){
-                                                        StaffName =value;
+                                                        Position =value;
+                                                      },
+                                                    ),
+                                                    TextFormField(
+                                                      cursorColor: Color(0xFF7B0305),
+                                                      initialValue: StaffDepartment,
+                                                      decoration: InputDecoration(labelText: 'Staff Department'),
+                                                      onChanged: (value){
+                                                        StaffDepartment=value;
                                                       },
                                                     ),
                                                     TextFormField(
@@ -118,7 +118,7 @@ class _StaffDisplayPageState extends State<StaffDisplayPage> {
                                                       initialValue: StaffId,
                                                       decoration: InputDecoration(labelText: 'Staff ID'),
                                                       onChanged: (value){
-                                                        StaffName =value;
+                                                        StaffId =value;
                                                       },
                                                     ),
                                                   ],
@@ -136,11 +136,11 @@ class _StaffDisplayPageState extends State<StaffDisplayPage> {
                                                 ),
                                                 ElevatedButton(onPressed: (){
                                                   FirebaseFirestore.instance.collection('staffdetails').doc(staffdetails.id).update({
-                                                    'Staff Department': StaffDepartment,
-                                                    'Staff Email': StaffEmail,
                                                     'Staff Name': StaffName,
+                                                    'Staff Email': StaffEmail,
                                                     'Staff Phone Number':StaffPhoneNumber,
                                                     'Staff Position': Position,
+                                                    'Staff Department': StaffDepartment,
                                                     'Staff ID':StaffId,
                                                   });
                                                   Navigator.pop(context);
