@@ -160,54 +160,73 @@ class _SignUpState extends State<SignUp> {
         },
       ),
       const SizedBox(height: 35),
-      ElevatedButton(
-        onPressed: () {
-          if (_formkey.currentState!.validate()) {
-            _formkey.currentState!.save();
-            FirebaseAuth.instance
-                .createUserWithEmailAndPassword(
-              email: emailController.text,
-              password: passwordController.text,
-            )
-                .then((value) {
-              CollectionReference collref = FirebaseFirestore.instance.collection(
-                  'profile');
-              collref.add({
-                'name': nameController.text,
-                'email': emailController.text,
-                'mobile': mobileController.text,
-                'gender': selectedGender,
-                'password': passwordController.text,
+      Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.red, Colors.blue],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(30),
+          ),
+        child: ElevatedButton(
+          onPressed: () {
+            if (_formkey.currentState!.validate()) {
+              _formkey.currentState!.save();
+              FirebaseAuth.instance
+                  .createUserWithEmailAndPassword(
+                email: emailController.text,
+                password: passwordController.text,
+              )
+                  .then((value) {
+                CollectionReference collref = FirebaseFirestore.instance.collection(
+                    'profile');
+                collref.add({
+                  'name': nameController.text,
+                  'email': emailController.text,
+                  'mobile': mobileController.text,
+                  'gender': selectedGender,
+                  'password': passwordController.text,
+                });
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                    LoginPage(),
+                  ),
+                );
+              }).catchError((error) {
+                _showErrorDialog(context,
+                    'Signup failed. Please try again later.');
               });
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                  LoginPage(),
-                ),
-              );
-            }).catchError((error) {
-              _showErrorDialog(context,
-                  'Signup failed. Please try again later.');
-            });
-          }
-          else {
-            _showErrorDialog(context, 'Please fix the errors in the form.');
-          }
-        },
-        child: const Text('Signup'),
-        style: ButtonStyle(
-          backgroundColor:
-          MaterialStateColor.resolveWith((states) {
-            if (states.contains(MaterialState.pressed)) {
-              return Colors.black26;
             }
-            return Colors.white;
-          }),
-          shape:
-          MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30)),
+            else {
+              _showErrorDialog(context, 'Please fix the errors in the form.');
+            }
+          },
+          child: const Text('Signup'),
+          style: ButtonStyle(
+            backgroundColor: MaterialStateColor.resolveWith((states) {
+              // You can set different colors for different states if needed
+              if (states.contains(MaterialState.pressed)) {
+                return Colors.black26;
+              }
+              return Colors.transparent; // Transparent color for normal state
+            }),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+            ),
+            foregroundColor: MaterialStateProperty.resolveWith((states) {
+              // Set text color based on button states
+              if (states.contains(MaterialState.pressed)) {
+                // When button is pressed
+                return Colors.white; // Text color when pressed
+              }
+              // Normal state
+              return Colors.white; // Default text color is white
+            }),
           ),
         ),
       ),

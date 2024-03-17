@@ -52,8 +52,8 @@ class _LoginPageState extends State<LoginPage> {
               ),
               SizedBox(height: 30),
               Container(
-                height: MediaQuery.of(context).size.height / 1.9,
-                width: MediaQuery.of(context).size.width * 0.7,
+                height: MediaQuery.of(context).size.height / 1.8,
+                width: MediaQuery.of(context).size.width * 0.9,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
@@ -142,44 +142,78 @@ class _LoginPageState extends State<LoginPage> {
                           ],
                         ),
                       ),
-                      ElevatedButton(
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            FirebaseAuth.instance
-                                .signInWithEmailAndPassword(
-                              email: emailController.text,
-                              password: passwordController.text,
-                            )
-                                .then((value) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => BottomPage(),
-                                ),
-                              );
-                            }).onError((error, stackTrace) {
-                              print("Error ${error.toString()}");
-                            });
-                          }
-                        },
-                        child: Text('Log In'),
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateColor.resolveWith(
-                                (states) {
-                              if (states.contains(MaterialState.pressed)) {
-                                return Colors.black26;
-                              }
-                              return Colors.white;
-                            },
+                      Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [Colors.red, Colors.blue],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            ),
+                            borderRadius: BorderRadius.circular(30),
                           ),
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              FirebaseAuth.instance
+                                  .signInWithEmailAndPassword(
+                                email: emailController.text,
+                                password: passwordController.text,
+                              )
+                                  .then((value) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => BottomPage(),
+                                  ),
+                                );
+                              }).onError((error, stackTrace) {
+                                print("Error ${error.toString()}");
+                              });
+                            }
+                          },
+                          child: Text('Log In'),
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                            ),
+                            backgroundColor: MaterialStateProperty.resolveWith((states) {
+                              // Set background color based on button states
+                              if (states.contains(MaterialState.pressed)) {
+                                // When button is pressed
+                                return Colors.transparent; // Use transparent color
+                              }
+                              // Normal state
+                              return Colors.transparent; // Use transparent color
+                            }),
+                            overlayColor: MaterialStateProperty.resolveWith((states) {
+                              // Set overlay color based on button states
+                              if (states.contains(MaterialState.pressed)) {
+                                // When button is pressed
+                                return Colors.transparent; // No overlay color when pressed
+                              }
+                              // Normal state
+                              return Colors.black12; // Default overlay color
+                            }),
+                            foregroundColor: MaterialStateProperty.resolveWith((states) {
+                              // Set text color based on button states
+                              if (states.contains(MaterialState.pressed)) {
+                                // When button is pressed
+                                return Colors.white; // Text color when pressed
+                              }
+                              // Normal state
+                              return Colors.white; // Default text color is white
+                            }),
+                            padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                              EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+                            ),
+                            textStyle: MaterialStateProperty.all<TextStyle>(
+                              TextStyle(fontSize: 16),
                             ),
                           ),
                         ),
                       ),
-
                       Center(
                         child: TextButton(
                           onPressed: () {
