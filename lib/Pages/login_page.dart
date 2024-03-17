@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../citizen/navigation_bar.dart';
+import 'adminLogin.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -51,8 +52,8 @@ class _LoginPageState extends State<LoginPage> {
               ),
               SizedBox(height: 30),
               Container(
-                height: MediaQuery.of(context).size.height / 2.3,
-                width: MediaQuery.of(context).size.width * 0.9,
+                height: MediaQuery.of(context).size.height / 1.9,
+                width: MediaQuery.of(context).size.width * 0.7,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
@@ -200,6 +201,29 @@ class _LoginPageState extends State<LoginPage> {
                           MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30),
+                            ),
+                          ),
+                        ),
+
+                      ),
+                      Center(
+                        child: TextButton(
+                          onPressed: () {
+                            // Handle navigation to login page
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    adLoginPage(), // Replace with your login page widget
+                              ),
+                            );
+                          },
+                          child: Text(
+                            'Login as Admin',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color:Colors.black ,
+                              // Consider using app theme colors or consistent styling
                             ),
                           ),
                         ),
