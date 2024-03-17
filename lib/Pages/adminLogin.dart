@@ -173,7 +173,7 @@ class _adLoginPageState extends State<adLoginPage> {
                           child: ElevatedButton(
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
-                                if(emailController.text=='Police@gmail.com'&& passwordController.text=='Police123') {
+                                if(emailController.text=='police@gmail.com'&& passwordController.text=='Police123') {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(

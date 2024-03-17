@@ -46,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
               Text(
                 'તમારી સુરક્ષા અમારી જવાબદારી છે',
                 style: TextStyle(
-                  color: Colors.lightGreenAccent,
+                  color: Colors.black,
                   fontSize: 25,
                 ),
               ),
