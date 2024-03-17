@@ -89,7 +89,6 @@ class _WantedInsertPageState extends State<WantedInsertPage> {
                       child: ElevatedButton(
                         onPressed: () async {
                           final pickedFile = await ImagePicker().getImage(source: ImageSource.gallery); // Open gallery to select image
-
                           if (pickedFile != null) {
                             setState(() {
                               _image = File(pickedFile.path); // Store the selected image
