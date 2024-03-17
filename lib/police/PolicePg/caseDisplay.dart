@@ -21,17 +21,6 @@ class _CaseDisplayPageState extends State<CaseDisplayPage> {
           children: [
             CustomTitleBar(title: 'Case Details'), // Custom title bar
             SizedBox(height: 10),
-            Text(
-              'Case Details:',
-              style: GoogleFonts.merriweather(
-                textStyle: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
-            ),
-            SizedBox(height: 10),
           StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance.collection('casereg').snapshots(),
             builder: (context, snapshot) {

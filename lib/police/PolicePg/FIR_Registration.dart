@@ -21,17 +21,6 @@ class _FIRRegistrationPageState extends State<FIRRegistrationPage> {
           children: [
             const CustomTitleBar(title: 'FIR Details'), // Custom title bar
             SizedBox(height: 10),
-            Text(
-              'FIR Details:',
-              style: GoogleFonts.merriweather(
-                textStyle: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
-            ),
-            SizedBox(height: 10),
             StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance.collection('fir').snapshots(),
               builder: (context, snapshot) {

@@ -19,25 +19,14 @@ class _StaffDisplayPageState extends State<StaffDisplayPage> {
     // Transparent color
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const CustomTitleBar(title: 'Staff Details'), // Custom title bar
-              SizedBox(height: 10),
-              Text(
-                'Staff Details:', // Changed from 'FIR Details'
-                style: GoogleFonts.merriweather( // Example of changing font to Open Sans
-                  textStyle: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black, // Background color of the title bar
-                  ),
-                ),
-              ),
-              SizedBox(height: 20),
-              StreamBuilder<QuerySnapshot>(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const CustomTitleBar(title: 'Staff Details'), // Custom title bar
+            SizedBox(height: 10),
+            Expanded(
+              child: StreamBuilder<QuerySnapshot>(
                 stream: FirebaseFirestore.instance.collection('staffdetails').snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
@@ -66,7 +55,6 @@ class _StaffDisplayPageState extends State<StaffDisplayPage> {
                     }
                     return ListView(
                       shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
                       children: staffwidgets,
                     );
                   } else {
@@ -74,42 +62,42 @@ class _StaffDisplayPageState extends State<StaffDisplayPage> {
                   }
                 },
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => StaffDetailsPage(
-                          onSubmit: (details) {
-                            setState(() {
-                              // Update the parent's state with the new details
-                              widget.staffDetails.add(details);
-                            });
-                          },
-                        ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => StaffDetailsPage(
+                        onSubmit: (details) {
+                          setState(() {
+                            // Update the parent's state with the new details
+                            widget.staffDetails.add(details);
+                          });
+                        },
                       ),
-                    );
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        const Color(0xFF7B0305)), // Change color here
-                    foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                  ),
-                  child: Text(
-                    'Add new Staff ',
-                    style: GoogleFonts.merriweather( // Example of changing font to Open Sans
-                      textStyle: const TextStyle(
-                        fontSize: 18,
-                        color: Colors.white, // Background color of the title bar
-                      ),
+                    ),
+                  );
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                      const Color(0xFF7B0305)), // Change color here
+                  foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                ),
+                child: Text(
+                  'Add new Staff ',
+                  style: GoogleFonts.merriweather( // Example of changing font to Open Sans
+                    textStyle: const TextStyle(
+                      fontSize: 18,
+                      color: Colors.white, // Background color of the title bar
                     ),
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
