@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:crime_track_master/police/widgetsPolice/titlebar.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,10 +8,10 @@ class AddArchiveFilesPage extends StatefulWidget {
 }
 class _AddArchiveFilesPageState extends State<AddArchiveFilesPage> {
   final _formKey = GlobalKey<FormState>();
+  final _caseID = TextEditingController();
+  final _description = TextEditingController();
+  final _status = TextEditingController();
 
-  String? _caseID;
-  String? _description;
-  String? _status;
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +44,7 @@ class _AddArchiveFilesPageState extends State<AddArchiveFilesPage> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: TextFormField(
+                  controller: _caseID,
                   cursorColor: Color(0xFF7B0305),
                   decoration: InputDecoration(
                     labelText: 'Case ID',
@@ -53,15 +55,15 @@ class _AddArchiveFilesPageState extends State<AddArchiveFilesPage> {
                     }
                     return null;
                   },
-                  onSaved: (value) {
-                    _caseID = value;
-                  },
+
+
                 ),
               ),
               SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: TextFormField(
+                  controller: _description,
                   cursorColor: Color(0xFF7B0305),
                   decoration: InputDecoration(
                     labelText: 'Description',
@@ -72,15 +74,15 @@ class _AddArchiveFilesPageState extends State<AddArchiveFilesPage> {
                     }
                     return null;
                   },
-                  onSaved: (value) {
-                    _description = value;
-                  },
+
+
                 ),
               ),
               SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: TextFormField(
+                  controller: _status,
                   cursorColor: Color(0xFF7B0305),
                   decoration: InputDecoration(
                     labelText: 'Status',
@@ -91,9 +93,8 @@ class _AddArchiveFilesPageState extends State<AddArchiveFilesPage> {
                     }
                     return null;
                   },
-                  onSaved: (value) {
-                    _status = value;
-                  },
+
+
                 ),
               ),
               SizedBox(height: 10),
@@ -103,13 +104,13 @@ class _AddArchiveFilesPageState extends State<AddArchiveFilesPage> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();
-                      // Now you can process the data
-                      // Navigate back to the ArchiveFilesPage and pass the data as arguments
-                      Navigator.pop(context, {
-                        'caseID': _caseID,
-                        'description': _description,
-                        'status': _status,
+                      CollectionReference collref = FirebaseFirestore.instance.collection('addarchive');
+                      collref.add({
+                        'Incident Details': _caseID.text,
+                        'Location': _description.text,
+                        'Case Type': _status.text, // Corrected string concatenation
                       });
+                        Navigator.pop(context);
                     }
                   },
                   style: ButtonStyle(
@@ -126,7 +127,6 @@ class _AddArchiveFilesPageState extends State<AddArchiveFilesPage> {
                   ),
                 ),
               ),
-
             ],
           ),
         ),

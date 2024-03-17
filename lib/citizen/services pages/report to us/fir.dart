@@ -233,7 +233,7 @@ class _FIRPageState extends State<FIRPage> {
                       // Validate the form before submission
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
-                        CollectionReference collref = FirebaseFirestore.instance.collection('fir');
+                        CollectionReference collref = FirebaseFirestore.instance.collection('offence');
                         collref.add({
                         'Victim Name': _victimName.text,
                         'Victim Address': _victimaddress.text,
