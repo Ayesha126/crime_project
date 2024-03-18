@@ -1,18 +1,17 @@
+import 'package:crime_track_master/citizen/editprofile.dart';
+import 'package:crime_track_master/police/PolicePg/FIR_Registration.dart';
 import 'package:crime_track_master/police/PolicePg/protocolPage.dart';
 import 'package:crime_track_master/police/PolicePg/wantedisplay.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:crime_track_master/police/PolicePg/settings.dart';
 import 'package:crime_track_master/police/PolicePg/staffDisplay.dart';
 import 'package:crime_track_master/police/widgetsPolice/titlebar.dart';
-import '../FIR_Registration.dart';
 import '../widgetsPolice/passwordbtn.dart';
 import 'archvFiles.dart';
 import 'caseDisplay.dart';
 import 'checklist.dart';
 import 'complaintPage.dart';
 import 'homepage.dart';
-
 class ServicesPage extends StatefulWidget {
   @override
   _ServicesPageState createState() => _ServicesPageState();
@@ -22,8 +21,8 @@ class _ServicesPageState extends State<ServicesPage> {
   final TextEditingController _searchController = TextEditingController();
   List<ServiceItem> services = [
     ServiceItem('FIR Registration', 'images/fir.png', FIRRegistrationPage()),
-    ServiceItem('Staff Details', 'images/police.png',
-        StaffDisplayPage(staffDetails: [],)),
+  ServiceItem('Staff Details', 'images/police.png',
+  StaffDisplayPage(staffDetails: [ ],)),
     ServiceItem('Case Registration', 'images/case.png', CaseDisplayPage()),
     ServiceItem('Wanted List', 'images/wanted.png', WantedDisplayPage()),
     ServiceItem('Crime Scene Checklist', 'images/list1.png', CrimeSceneChecklistPage()),

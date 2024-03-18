@@ -201,7 +201,6 @@ class _CaseDisplayPageState extends State<CaseDisplayPage> {
                                     },
                                     icon: Icon(Icons.delete),
                                   ),
-
                                 ],
                               ),
                             ],
