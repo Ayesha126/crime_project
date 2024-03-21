@@ -11,7 +11,7 @@ class ComplaintPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const CustomTitleBar(title: 'Staff Details'), // Custom title bar
+            const CustomTitleBar(title: 'Complaint Page'), // Custom title bar
             SizedBox(height: 10),
             Expanded(
               child: ListView( // Wrap with ListView
@@ -59,20 +59,7 @@ class ComplaintPage extends StatelessWidget {
                       }
                     },
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      color: Color(0xFF7B0305),
-                      child: Text(
-                        "Anonymously Filed Complaints",
-                        style: GoogleFonts.laila(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
+                  MiddleTitleBar(title: 'Anonymously Filed Complaints', height: 50),
                   StreamBuilder<QuerySnapshot>(
                     stream: FirebaseFirestore.instance.collection('anonymouslyfir').snapshots(),
                     builder: (context, snapshot) {
@@ -113,20 +100,7 @@ class ComplaintPage extends StatelessWidget {
                       }
                     },
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      color: Color(0xFF7B0305),
-                      child: Text(
-                        "Cyber Crime Complaints",
-                        style: GoogleFonts.laila(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
+                  MiddleTitleBar(title: 'Cyber Crime Complaints', height: 50),
                   StreamBuilder<QuerySnapshot>(
                     stream: FirebaseFirestore.instance.collection('cyberfir').snapshots(),
                     builder: (context, snapshot) {
