@@ -1,9 +1,7 @@
 import 'package:crime_track_master/Pages/signup.dart';
-import 'package:crime_track_master/police/widgetsPolice/navigation_menu.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import '../citizen/navigation_bar.dart';
 import 'adminLogin.dart';
 
@@ -17,6 +15,8 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>(); // Add form key for validation
+
+  String? loggedInUserEmail; // Variable to store logged-in user's email
 
   @override
   Widget build(BuildContext context) {
@@ -143,14 +143,14 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [Colors.red, Colors.blue],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                            ),
-                            borderRadius: BorderRadius.circular(30),
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [Colors.red, Colors.blue],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
                           ),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
                         child: ElevatedButton(
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
@@ -160,6 +160,9 @@ class _LoginPageState extends State<LoginPage> {
                                 password: passwordController.text,
                               )
                                   .then((value) {
+                                setState(() {
+                                  loggedInUserEmail = value.user!.email; // Store logged-in user's email
+                                });
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -247,3 +250,4 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
+

@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crime_track_master/citizen/services pages/report to us/anonymously.dart';
 import 'package:crime_track_master/citizen/services pages/report to us/cyber.dart';
 import 'package:crime_track_master/citizen/services pages/report to us/fir.dart';
@@ -6,7 +9,9 @@ import 'package:crime_track_master/citizen/services pages/information services/i
 import 'package:crime_track_master/citizen/services pages/sos.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // ... rest of the code remains unchanged
@@ -122,8 +127,9 @@ class _ServicePageState extends State<ServicePage> {
                         splashColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () {
-                          sendDistressMessage(['+918000058387', '+917405290860', '+919104109252']);
-                        },                      child: Align(
+                          sendDistressMessageToFirestore('dEmZjHkH2yb5CLUq04Cy');
+                        },
+                        child: Align(
                         alignment: Alignment.bottomCenter,
                         child: Image.asset('images/sos.png', scale: 7.0),
                       ),
@@ -199,9 +205,18 @@ class _ServicePageState extends State<ServicePage> {
                   Column(
                     children: [
                       const SizedBox(height: 40),
-                      Align(
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => TrackTrip()),
+                          );
+                          },
+                      child:Align(
                         alignment: Alignment.bottomCenter,
                         child: Image.asset('images/report.png', scale: 6.0),
+                      ),
                       ),
 
                       const SizedBox(height: 10), // add some space between the image and the text
@@ -539,3 +554,111 @@ class PoliceStation extends StatelessWidget {
   }
 }
 // Function to open WhatsApp with live location
+
+
+
+class TrackTrip extends StatefulWidget {
+  @override
+  _TrackTripState createState() => _TrackTripState();
+}
+
+class _TrackTripState extends State<TrackTrip> {
+  late GoogleMapController mapController;
+  late Position _currentPosition;
+  late StreamSubscription<Position> _positionStreamSubscription;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Track Trip'),
+      ),
+      body: GoogleMap(
+        onMapCreated: _onMapCreated,
+        initialCameraPosition: CameraPosition(
+          target: LatLng(0, 0),
+          zoom: 15.0,
+        ),
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getCurrentLocation();
+    _startLocationUpdates();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _positionStreamSubscription.cancel();
+  }
+
+  void _onMapCreated(GoogleMapController controller) {
+    setState(() {
+      mapController = controller;
+    });
+  }
+
+  void _getCurrentLocation() async {
+    try {
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+      setState(() {
+        _currentPosition = position;
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void _startLocationUpdates() {
+    _positionStreamSubscription = Geolocator.getPositionStream(
+      desiredAccuracy: LocationAccuracy.high,
+      distanceFilter: 10, // in meters
+    ).listen((Position position) {
+      setState(() {
+        _currentPosition = position;
+        _updateFirestoreWithLocation(position);
+      });
+    });
+  }
+
+  void _updateFirestoreWithLocation(Position position) async {
+    // Retrieve phone numbers from Firestore
+    List<String> phoneNumbers = await _getEmergencyNumbersFromFirestore();
+
+    // Construct Google Maps URL with current live location
+    String googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=${position.latitude},${position.longitude}';
+
+    // Send location update via SMS to each phone number
+    for (String phoneNumber in phoneNumbers) {
+      String message = 'Live location update: $googleMapsUrl';
+      String encodedMessage = Uri.encodeComponent(message);
+      String url = 'sms:$phoneNumber?body=$encodedMessage';
+      await launch(url);
+    }
+  }
+
+  Future<List<String>> _getEmergencyNumbersFromFirestore() async {
+    try {
+      // Retrieve emergency numbers from Firestore
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance.collection('profile').doc('dEmZjHkH2yb5CLUq04Cy').get();
+      Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+      List<String> emergencyNumbers = [
+        data['emergencyContact1'],
+        data['emergencyContact2'],
+        data['emergencyContact3'],
+      ];
+      return emergencyNumbers;
+    } catch (e) {
+      print('Error retrieving emergency numbers: $e');
+      return []; // Return an empty list or handle the error as per your requirement
+    }
+  }
+}
+
+
