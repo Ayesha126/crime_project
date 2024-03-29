@@ -1,4 +1,8 @@
+import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:crime_track_master/police/PolicePg/wantedisplay.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../widgetsPolice/titlebar.dart';
@@ -113,37 +117,49 @@ class _WantedInsertPageState extends State<WantedInsertPage> {
                     _image != null ? Image.file(_image!) : SizedBox(height: 0),
                     SizedBox(height: 10),
                     ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         setState(() {
                           nameErrorText = nameController.text.isEmpty ? 'Name cannot be empty' : '';
-                          photoUrlErrorText = _image == null ? 'Image cannot be empty' : ''; // Check if image is null
+                          photoUrlErrorText = _image == null ? 'Image cannot be empty' : '';
                           descriptionErrorText = descriptionController.text.isEmpty ? 'Description cannot be empty' : '';
-                          if (_image == null || _image!.path.isEmpty) { // Check if the image is not selected or its path is empty
-                            photoUrlErrorText = 'Image cannot be empty';
-                          }
-                          if (nameErrorText.isEmpty && photoUrlErrorText.isEmpty && descriptionErrorText.isEmpty) {
-                            // Send values to display page
-                            Navigator.pop(context, {
-                              'name': nameController.text,
-                              'photoUrl': _image?.path ?? '', // Use the image path if available, otherwise empty string
-                              'description': descriptionController.text,
-                            });
-                          }
                         });
+
+                        if (_image != null && nameErrorText.isEmpty && photoUrlErrorText.isEmpty && descriptionErrorText.isEmpty) {
+                          Uint8List imageBytes = await _image!.readAsBytes(); // Convert image to bytes
+                          String base64Image = base64Encode(imageBytes); // Convert image bytes to a base64 string
+
+                          // Now, store the data along with the base64 image string in Firestore
+                          FirebaseFirestore.instance.collection('wantedPersons').add({
+                            'name': nameController.text,
+                            'crime': crimeController.text,
+                            'description': descriptionController.text,
+                            'image': base64Image, // Store the base64 string
+                          }).then((value) {
+                            print("Wanted Person Added");
+                            // Optionally, clear the form or give feedback to the user here.
+                          }).catchError((error) {
+                            print("Failed to add wanted person: $error");
+                          });
+                          Navigator.pop(
+                            context,
+                            MaterialPageRoute(builder: (context) => WantedDisplayPage()),
+                          );
+                        }
                       },
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFF7B0305)), // Change color here
+                        backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFF7B0305)),
                         foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.send), // Add icon on the left side
+                          Icon(Icons.send),
                           SizedBox(width: 8),
                           Text('Submit'),
                         ],
                       ),
                     ),
+
 
                   ],
                 ),
