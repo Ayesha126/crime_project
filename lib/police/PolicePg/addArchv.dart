@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:crime_track_master/police/widgetsPolice/titlebar.dart';
 import 'package:google_fonts/google_fonts.dart';
 class AddArchiveFilesPage extends StatefulWidget {
+  final Function(String) onSubmit; // Function to handle submission
+
+  const AddArchiveFilesPage({Key? key, required this.onSubmit}) : super(key: key);
   @override
   _AddArchiveFilesPageState createState() => _AddArchiveFilesPageState();
 }
