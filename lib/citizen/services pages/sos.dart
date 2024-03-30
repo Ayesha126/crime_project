@@ -1,18 +1,27 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-Future<void> sendDistressMessageToFirestore(String email, String loggedInUserEmail) async {
+import '../database/useremail.dart';
+
+Future<void> sendDistressMessageToFirestore() async {
   try {
+    // Get the email of the logged-in user
+    String loggedInUserEmail = (await getUserEmail())!;
+
+    // Log the loggedInUserEmail to ensure it contains the expected email address
+    print('Logged-in user email: $loggedInUserEmail');
+
     // Convert the email to lowercase for consistency
     String lowercaseUserEmail = loggedInUserEmail.toLowerCase();
 
     // Query Firestore to find the document ID associated with the provided email
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection('profile')
-        .where('email'.toLowerCase(), isEqualTo:lowercaseUserEmail) // Convert email to lowercase before comparison
+        .where('email'.toLowerCase(), isEqualTo: lowercaseUserEmail) // Convert email to lowercase before comparison
         .get();
 
     // Check if the query result is not empty
@@ -71,3 +80,5 @@ Future<void> sendDistressMessageToFirestore(String email, String loggedInUserEma
     print('Error sending distress message: $e');
   }
 }
+
+

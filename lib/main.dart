@@ -10,6 +10,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:crime_track_master/Pages/login_page.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -21,6 +22,7 @@ void main() async {
     ),
   );
   runApp(MyApp());
+
 }
 
 class MyApp extends StatelessWidget {

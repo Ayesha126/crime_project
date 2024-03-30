@@ -14,7 +14,7 @@ class SOSCard extends StatelessWidget {
         children: [
           InkWell(
             onTap: () {
-              sendDistressMessageToFirestore('dEmZjHkH2yb5CLUq04Cy');
+              sendDistressMessageToFirestore();
             },
             child: Card(
               elevation: 3,

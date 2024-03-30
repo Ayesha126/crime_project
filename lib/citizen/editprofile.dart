@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'database/useremail.dart';
+
 class EditProfilePage extends StatefulWidget {
 
   @override
@@ -31,12 +33,49 @@ class _EditProfilePageState extends State<EditProfilePage> {
     return null;
   }
 
+  void fetchUserProfileData() async {
+    try {
+      // Get the email of the logged-in user
+      String loggedInUserEmail = (await getUserEmail())!;
 
+      // Query Firestore to find the document with the matching email
+      QuerySnapshot querySnapshot = await firestore
+          .collection('profile')
+          .where('email', isEqualTo: loggedInUserEmail)
+          .get();
+
+      // Check if the query result is not empty
+      if (querySnapshot.docs.isNotEmpty) {
+        // Retrieve the first document
+        var userData = querySnapshot.docs.first.data() as Map<String, dynamic>; // Cast to Map<String, dynamic>
+
+        // Set text field values with retrieved user data
+        setState(() {
+          _nameController.text = userData['name'] ?? '';
+          _emailController.text = userData['email'] ?? '';
+          _emergencyContact1Controller.text = userData['emergencyContact1'] ?? '';
+          _emergencyContact2Controller.text = userData['emergencyContact2'] ?? '';
+          _emergencyContact3Controller.text = userData['emergencyContact3'] ?? '';
+          _mobilenumberController.text = userData['mobile'] ?? '';
+        });
+      }
+
+    } catch (error) {
+      print('Error fetching user profile data: $error');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // Call method to fetch and set user profile data
+    fetchUserProfileData();
+  }
 
 
   void updateProfile() {
     // Get the email entered by the user
-    String email = _emailController.text;
+    String email = _emailController.text.toLowerCase();
 
     // Query Firestore to find the document with the matching email
     firestore.collection('profile').where('email', isEqualTo: email).get().then((QuerySnapshot querySnapshot) {

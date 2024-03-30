@@ -17,6 +17,9 @@ class _SignUpState extends State<SignUp> {
   final emailController=TextEditingController();
   final mobileController=TextEditingController();
   final passwordController=TextEditingController();
+  final emergencycontacts1=TextEditingController();
+  final emergencycontacts2=TextEditingController();
+  final emergencycontacts3=TextEditingController();
   final _formkey=GlobalKey<FormState>();
   bool _obscureText =true ;
   String? selectedGender;
@@ -46,7 +49,7 @@ class _SignUpState extends State<SignUp> {
     padding: const EdgeInsets.all(20.0),
     child: Center(
     child: Container(
-    height: MediaQuery.of(context).size.height/1.4,
+    height: MediaQuery.of(context).size.height/1.15,
     width: MediaQuery.of(context).size.width*0.9,// Adjust width as needed
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
@@ -159,6 +162,66 @@ class _SignUpState extends State<SignUp> {
           return null; // Return null if the password is not empty
         },
       ),
+      TextFormField(
+        controller: emergencycontacts1,
+        decoration: const InputDecoration(
+          hintText: 'Emergency Contacts1',
+          prefixIcon: Icon(Icons.phone),
+        ),
+        inputFormatters: <TextInputFormatter>[
+          FilteringTextInputFormatter.digitsOnly,
+          LengthLimitingTextInputFormatter(10),
+        ],
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please enter your Emergency Contacts1';
+          }
+          if (value.length != 10) {
+            return 'Please enter a valid 10-digit Emergency Contacts1';
+          }
+          return null;
+        },
+      ),
+      TextFormField(
+        controller: emergencycontacts2,
+        decoration: const InputDecoration(
+          hintText: 'Emergency Contact2',
+          prefixIcon: Icon(Icons.phone),
+        ),
+        inputFormatters: <TextInputFormatter>[
+          FilteringTextInputFormatter.digitsOnly,
+          LengthLimitingTextInputFormatter(10),
+        ],
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please enter your Emergency Contacts2';
+          }
+          if (value.length != 10) {
+            return 'Please enter a valid 10-digit Emergency Contacts2';
+          }
+          return null;
+        },
+      ),
+      TextFormField(
+        controller: emergencycontacts3,
+        decoration: const InputDecoration(
+          hintText: 'Emergency Contacts3',
+          prefixIcon: Icon(Icons.phone),
+        ),
+        inputFormatters: <TextInputFormatter>[
+          FilteringTextInputFormatter.digitsOnly,
+          LengthLimitingTextInputFormatter(10),
+        ],
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please enter your Emergency Contacts3';
+          }
+          if (value.length != 10) {
+            return 'Please enter a valid 10-digit Emergency Contacts3';
+          }
+          return null;
+        },
+      ),
       const SizedBox(height: 35),
       Container(
           decoration: BoxDecoration(
@@ -179,14 +242,17 @@ class _SignUpState extends State<SignUp> {
                 password: passwordController.text,
               )
                   .then((value) {
-                CollectionReference collref = FirebaseFirestore.instance.collection(
-                    'profile');
-                collref.add({
-                  'name': nameController.text,
-                  'email': emailController.text,
-                  'mobile': mobileController.text,
+                CollectionReference collref = FirebaseFirestore.instance.collection('profile');
+                collref.doc(emailController.text.toLowerCase()).set({
+                  'email': emailController.text.toLowerCase(),
+                  'emergencyContact1':emergencycontacts1.text,
+                  'emergencyContact2':emergencycontacts2.text,
+                  'emergencyContact3':emergencycontacts3.text,
                   'gender': selectedGender,
+                  'mobile': mobileController.text,
+                  'name': nameController.text,
                   'password': passwordController.text,
+
                 });
                 Navigator.push(
                   context,
@@ -196,8 +262,11 @@ class _SignUpState extends State<SignUp> {
                   ),
                 );
               }).catchError((error) {
-                _showErrorDialog(context,
-                    'Signup failed. Please try again later.');
+                String errorMessage = 'Signup failed. Please try again later.';
+                if (error is FirebaseAuthException) {
+                  errorMessage = error.message ?? errorMessage;
+                }
+                _showErrorDialog(context, errorMessage);
               });
             }
             else {
@@ -278,4 +347,5 @@ class _SignUpState extends State<SignUp> {
       ),
     );
   }
+
 }
