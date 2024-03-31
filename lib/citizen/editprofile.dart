@@ -242,6 +242,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
+                      foregroundColor:  Colors.white,
                     ),
                     child: Text('Update Profile'),
                   ),

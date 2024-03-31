@@ -7,6 +7,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      automaticallyImplyLeading: false,
       backgroundColor: const Color(0xFF90CAF9),
       title: Text('Crime Track Master',
         style: GoogleFonts.lora(

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'BusStationCard.dart';
+import 'offencecard.dart';
 import 'HospitalCard.dart';
-import 'PharmacyCaard.dart';
+import 'soscard.dart';
 import 'PoliceStationCard.dart';
 class LiveSafe extends StatelessWidget {
   const LiveSafe({Key? key}) : super(key: key);

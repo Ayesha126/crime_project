@@ -33,6 +33,7 @@ class _ContactPageState extends State<ContactPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Color(0xFF90CAF9),
         title:Text('Contact Page',
         style:TextStyle(

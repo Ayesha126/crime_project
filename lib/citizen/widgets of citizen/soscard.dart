@@ -1,10 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class PoliceStationCard extends StatelessWidget {
-  final Function onMapFunction;
+import '../services pages/sos.dart';
 
-  const PoliceStationCard({Key? key, required this.onMapFunction}) : super(key: key);
-
+class SOSCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -15,7 +14,7 @@ class PoliceStationCard extends StatelessWidget {
           children: [
             InkWell(
               onTap: () {
-                onMapFunction('police stations near me');
+                sendDistressMessageToFirestore();
               },
               child: Card(
                 elevation: 3,
@@ -27,8 +26,8 @@ class PoliceStationCard extends StatelessWidget {
                   width: 50,
                   child: Center(
                     child: Image.asset(
-                      'images/police station.png',
-                      height: 35,
+                      'images/sos.png',
+                      height: 32,
                     ),
                   ),
                 ),
@@ -36,7 +35,7 @@ class PoliceStationCard extends StatelessWidget {
             ),
             SizedBox(height: 8), // Add space between the image and text
             Text(
-              "Police Stations",
+              "Send         Location",
               textAlign: TextAlign.center, // Center align text horizontally
             ),
           ],
