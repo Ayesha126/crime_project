@@ -212,7 +212,7 @@ class _ServicePageState extends State<ServicePage> {
                         },
                         child: Align(
                           alignment: Alignment.bottomCenter,
-                          child: Image.asset('images/report.png', scale: 6.0),
+                          child: Image.asset('images/trip.png', scale: 8.4),
                         ),
                       ),
 

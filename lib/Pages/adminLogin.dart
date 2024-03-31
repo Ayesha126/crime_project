@@ -13,9 +13,9 @@ class adLoginPage extends StatefulWidget {
 
 class _adLoginPageState extends State<adLoginPage> {
   bool _obscureText = true;
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController staffIdController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final staffIdController = TextEditingController();
   final _formKey = GlobalKey<FormState>(); // Add form key for validation
 
   @override
@@ -173,7 +173,7 @@ class _adLoginPageState extends State<adLoginPage> {
                           child: ElevatedButton(
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
-                                if(emailController.text=='police@gmail.com'&& passwordController.text=='Police123') {
+                                if(emailController.text=='1'&& passwordController.text=='1') {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(

@@ -138,11 +138,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
         elevation: 0,
         automaticallyImplyLeading: false,
       ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
+    body: SingleChildScrollView(
+    child: Padding(
+    padding: EdgeInsets.all(16.0),
+    child: Form(
+    key: _formKey,
+    child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextFormField(
@@ -250,6 +251,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
           ),
         ),
       ),
-    );
+    ));
   }
 }
