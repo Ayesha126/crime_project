@@ -22,7 +22,7 @@ class _ArchiveFilesPageState extends State<ArchiveFilesPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CustomTitleBar(title: 'Case Details'), // Custom title bar
+            CustomTitleBar(title: 'Archive Files Display'), // Custom title bar
             SizedBox(height: 10),
             Expanded(
               child: StreamBuilder<QuerySnapshot>(
@@ -118,7 +118,6 @@ class _ArchiveFilesPageState extends State<ArchiveFilesPage> {
                                                       // Update the case details in the Firestore database
                                                       FirebaseFirestore.instance.collection('addarchive').doc(addarchive.id).update({
                                                         'Case Type': caseType,
-
                                                         'Incident Details': incidentdetails,
                                                         'Location': Location,
 
@@ -220,7 +219,7 @@ class _ArchiveFilesPageState extends State<ArchiveFilesPage> {
                   foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
                 ),
                 child: Text(
-                  'Create new Case',
+                  'Insert archive file',
                   style: GoogleFonts.merriweather(
                     textStyle: const TextStyle(
                       fontSize: 18,

@@ -46,7 +46,7 @@ class _FIRPageState extends State<FIRPage> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Color(0xFF90CAF9),
-          title: Text('FIR Form',
+          title: Text('Report Offence',
             style:TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Color(0xFFF8F8F8)

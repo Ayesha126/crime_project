@@ -209,7 +209,7 @@ class _CaseRegistrationPageState extends State<CaseRegistrationPage> {
     children: [
     Icon(Icons.send), // Add icon on the left side
     SizedBox(width: 8),
-    Text('Submit FIR'),
+    Text('Register Case'),
     ],
     ),
                 ),

@@ -173,16 +173,32 @@ class _adLoginPageState extends State<adLoginPage> {
                           child: ElevatedButton(
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
-                                if(emailController.text=='1'&& passwordController.text=='1') {
+                                if(emailController.text == '1' && passwordController.text == '1') {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (
-                                          context) => const NavigationMenu(),
+                                      builder: (context) => const NavigationMenu(),
                                     ),
                                   );
-                                }else {
-                                  print(Text("Wrong Email And Password"));
+                                } else {
+                                  // Show alert dialog for wrong email and password
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: Text("Error"),
+                                        content: Text("Wrong email or password."),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop(); // Close the dialog
+                                            },
+                                            child: Text("OK"),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
                                 }
                               }
                             },
@@ -205,18 +221,16 @@ class _adLoginPageState extends State<adLoginPage> {
                               ),
                               backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
                               overlayColor: MaterialStateProperty.resolveWith((states) {
-                                // Set overlay color based on button states
                                 if (states.contains(MaterialState.pressed)) {
-                                  // When button is pressed
-                                  return Colors.transparent; // No overlay color when pressed
+                                  return Colors.transparent;
                                 }
-                                // Normal state
-                                return Colors.black12; // Default overlay color
+                                return Colors.black12;
                               }),
-                              elevation: MaterialStateProperty.all<double>(0), // No elevation
+                              elevation: MaterialStateProperty.all<double>(0),
                               foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
                             ),
                           ),
+
                         ),
                         SizedBox(height: 10),
                       ],
